@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <string.h>
 #include <linux/fb.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
@@ -42,17 +42,23 @@ int main(void)
 
     lseek(fd_bmp,  54,  SEEK_SET);
     
-    char buf[3] = {0};
+    char buf[3];
+    memset(buf, 0, sizeof(buf));
     int w = 0;
     int h = 0;
 
-    for(; h < 340; h++)
-    {
-        for(; w < 500; w++)
-        {
-            read(fd_bmp, buf, 3);
+    //int buf_[340][500];
 
-            *(memp + w + h*var.xres) = buf[0] | buf[1] << 4 | buf[2] << 8;
+    for(h = 0; h < 340; h++)
+    {
+        for(w = 0; w < 500; w++)
+        {
+            read(fd_bmp, buf, sizeof(buf));
+
+            //1   2     3    4
+            //      红  绿  蓝
+            //*(memp + w + h*var.xres) = 0x000000ff;
+            *(memp + w + h*var.xres) = buf[0] << 0  | buf[1] << 8 | buf[2] << 16;
         }
     }
 /*
