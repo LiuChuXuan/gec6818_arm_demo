@@ -32,14 +32,42 @@ int main(void)
         return -2;
     }
 
-    int i = 0;
-    for(i = 0;i < var.xres*var.yres; i++)
+    //w = 500   h = 340
+    int fd_bmp = open("a.bmp", O_RDONLY);
+    if(fd_bmp == -1)
     {
-        *(memp+i) = 0xff0000;
+        perror("open");
+        return -1;
     }
 
-    munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
+    lseek(fd_bmp,  54,  SEEK_SET);
+    
+    char buf[3] = {0};
+    int w = 0;
+    int h = 0;
 
+    for(; h < 340; h++)
+    {
+        for(; w < 500; w++)
+        {
+            read(fd_bmp, buf, 3);
+
+            *(memp + w + h*var.xres) = buf[0] | buf[1] << 4 | buf[2] << 8;
+        }
+    }
+/*
+    int i = 0;
+    for(i = 0; i < var.xres * var.yres; i++)
+    {
+        read(fd_bmp, buf, 3);
+
+        *(memp+i) = buf[0] | buf[1] << 4 | buf[2] << 8;
+    }
+ */
+
+
+    munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
+    close(fd_bmp);
     close(fd);
 
 
