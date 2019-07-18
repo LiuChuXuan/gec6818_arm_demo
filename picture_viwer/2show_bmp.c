@@ -9,7 +9,7 @@
 #include <sys/mman.h>
 
 
-int main(void)
+int main(int argc, char *argv[])
 {
     //打开LCD屏幕文件
     int fd = open("/dev/fb0",O_RDWR);
@@ -32,7 +32,7 @@ int main(void)
         perror("mmap");
         return -2;
     }
-	char *bmp_name = "a.bmp";
+	char *bmp_name = argv[1];
 	
 	//1、打开bmp文件400*300
 	FILE *bmp_fp = fopen(bmp_name, "r");
