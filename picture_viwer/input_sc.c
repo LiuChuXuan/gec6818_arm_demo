@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    struct input_event evt;
+    struct input_event evt;/*  /dev/input/event0  */  
     int fd = open("/dev/input/event0",O_RDWR);
     if(fd==-1)
     {
