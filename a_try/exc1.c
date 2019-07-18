@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	//show_bmp(0, 0, 400, 300, "/193/2.bmp");
 	
 	
-	show_bmp(0, 0, 402, 300, argv[1]);
+	show_bmp(200, 100, 402, 300, argv[1]);
 	
 	return 0;
 }
@@ -87,9 +87,16 @@ int show_bmp(int x, int y, int bmp_w, int bmp_h, char *bmp_name)
 	{
 		for(i=0; i<bmp_w; i++)
 		{
-
-			*(addr+i+800*j) = lcd_buf[i+bmp_w*j];
+			//			0						0  -->299  (300-1-0)
+			//			1						1  -->298   (300-1-1)
+			
+			//          0							299
+			//			1							298
+			*(addr+i+800*j+y*800+x) = lcd_buf[i+bmp_w*(bmp_h-1-j)];//任意位置，正立
+			//*(addr+i+800*j) = lcd_buf[i+bmp_w*(bmp_h-1-j)];//原点，正立
+			//	*(addr+i+800*j) = lcd_buf[i+bmp_w*j]; //原点，倒立
 		}
+		
 		usleep(10*1000);//延时10毫秒
 	}
 		
