@@ -8,4 +8,6 @@
 #include <unistd.h>
 #include <linux/input.h>
 
+int left_right(void);
+
 #endif

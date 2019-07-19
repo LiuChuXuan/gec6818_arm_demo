@@ -21,14 +21,11 @@ int main(int argc, char **argv)
 		printf("i:%d-->x, y: %d\t %d\n", i, x, y);
 		if(400>x && x>200 && y>100 && y<400)
 		{
-			
-			show_bmp(100, 100, 500, 340, "./1.bmp");
-
+			show_bmp(0, 0, 800, 480, "./3.bmp");
 		}
 		if(700>x && x>500 && y>100 && y<400)
 		{
-			show_bmp(100, 100, 402, 300, "./2.bmp");
-			
+			show_bmp(0, 0, 800, 480, "./4.bmp");
 		}
 	}
 	return 0;
@@ -128,8 +125,9 @@ int show_bmp(int x, int y, int bmp_w, int bmp_h, char *bmp_name)
 	printf("showing %s\n", bmp_name);
 	
 	//	2、跳过54个字节文件头
-	fseek(bmp_fp, 54, SEEK_SET);
-		
+	int result = fseek(bmp_fp, 54, SEEK_SET);
+//	printf("%d\n",result);
+
 	//因为地址对齐多出来的字节数
 	int ret = (4-bmp_w*3%4)%4; //每行多补的字节数
 		
