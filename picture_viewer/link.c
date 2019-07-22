@@ -1,25 +1,20 @@
 #include "link.h"
 
-node_t link_create(node_t head)
+node_t link_create(node_t *head)
 {
-    head = (node_t)malloc(sizeof(node));
-    head_init(head);
-    return head;
-}
-
-node_t head_init(node_t head)
-{
+    *head = (node_t)malloc(sizeof(node));
     if(head != NULL)
     {
-        memset(head, 0, sizeof(node));
-        head->next = head;
-        head->prev = head;
+        memset(*head, 0, sizeof(node));
+        (*head)->item = 0;
+        (*head)->next = *head;
+        (*head)->prev = *head;
     }
     else
     {
         perror("head == NULL");
     }
-    return head;
+    return *head;
 }
 
 node_t link_init(node_t head)
@@ -35,6 +30,7 @@ node_t link_init(node_t head)
             temp = head->next;
         }
     }
+    printf("111\n");
     return head;
 }
 
@@ -55,7 +51,7 @@ int link_travel(node_t head)
         while(temp != head)
         {
             count++;
-            printf("%d: %d ", count, temp->item);
+            printf("%d ", temp->item);
             temp = temp->next;
         }
         printf("\n");
@@ -70,9 +66,11 @@ int link_travel(node_t head)
 
 int link_length(node_t head)
 {
+
     int count = 0;
     if(head != NULL)
     {
+
         node_t temp = head->next;
         while(temp != head)
         {
@@ -91,6 +89,7 @@ int link_length(node_t head)
 //insert by position,插入到第n个，n = position.
 node_t node_insert(node_t head, element_t item, int position)
 {
+
     if(position == 0)
     {
         perror("node_insert不能插入到头结点，第三个参数不能为0");
@@ -118,6 +117,8 @@ node_t node_insert(node_t head, element_t item, int position)
             {
                 temp = temp->next;
             }
+            new_node->next = temp->next;
+            new_node->prev = temp;
             temp->next->prev = new_node;
             temp->next = new_node;
         }
@@ -127,9 +128,16 @@ node_t node_insert(node_t head, element_t item, int position)
             {
                 temp = temp->prev;
             }
+            new_node->next = temp;
+            new_node->prev = temp->prev;
             temp->prev->next = new_node;
             temp->prev = new_node;
         }
+        return head;
+    }
+    else
+    {
+        perror("insert:head == null");
         return head;
     }
 }
