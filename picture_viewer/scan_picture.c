@@ -43,7 +43,9 @@ int is_bmp(char *path)
 
 int scan_picture(char *path, node_t head)
 {
+    printf("path = %s\n",path);
     struct stat file_info;
+    memset(&file_info, 0, sizeof(file_info));
     struct dirent *p = NULL;
 
     DIR *dp = opendir(path);
@@ -61,39 +63,51 @@ int scan_picture(char *path, node_t head)
         {
             continue;
         }
+        
         stat(p->d_name, &file_info);
 
-        if(((file_info.st_mode & S_IFMT) != S_IFDIR) 
-        && ((file_info.st_mode & S_IFMT) != S_IFREG))
+        if(((file_info.st_mode & S_IFMT) == S_IFBLK)
+        ||((file_info.st_mode & S_IFMT) == S_IFCHR)
+        ||((file_info.st_mode & S_IFMT) == S_IFIFO)
+        ||((file_info.st_mode & S_IFMT) == S_IFLNK)
+        ||((file_info.st_mode & S_IFMT) == S_IFSOCK))
         {
             continue;
         }
 
-        //如果是bmp图片，则将其路径放进链表里
-        if((file_info.st_mode & S_IFMT) == S_IFREG)
+        //把打开的文件路径放到str_temp字符串中（堆空间）
+        char *path_tmp = NULL;
+        int str_length = 0;
+
+        str_length = strlen(path);
+        if(*(path + str_length - 1) != '/')
         {
-            //把打开的文件路径放到str_temp字符串中（堆空间）
-            char *path_tmp;
-            int str_length = 0;
-            str_length = strlen(path);
-            if(*(path + str_length) != '/')
+            str_length += strlen(p->d_name) + 2;
+            path_tmp = (char*)malloc(str_length);
+            if(path_tmp != NULL)
             {
-                str_length += strlen(p->d_name) + 2;
-                path_tmp = (char*)malloc(str_length);
                 memset(path_tmp, 0, str_length);
                 strcat(path_tmp,path);
                 strcat(path_tmp,"/");
                 strcat(path_tmp,p->d_name);
             }
-            else
+        }
+        else
+        {
+            str_length += strlen(p->d_name) + 1;
+            path_tmp = (char*)malloc(str_length);
+            if(path_tmp != NULL)
             {
-                str_length += strlen(p->d_name) + 1;
-                path_tmp = (char*)malloc(str_length);
                 memset(path_tmp, 0, str_length);
                 strcat(path_tmp,path);
                 strcat(path_tmp,p->d_name);
             }
+        }
+        printf("%s\n",path_tmp);
 
+        //如果是bmp图片，则将其路径放进链表里
+        if((file_info.st_mode & S_IFMT) == S_IFREG)
+        {
             int ret = is_bmp(path_tmp);
             if(ret == 1)
             {
@@ -101,8 +115,6 @@ int scan_picture(char *path, node_t head)
             }
             else
             {
-                //printf("%s\n",path_tmp);
-                //printf("%d\n\n",ret);
                 free(path_tmp);
                 continue;
             }
@@ -111,28 +123,10 @@ int scan_picture(char *path, node_t head)
         //如果是文件目录，则递归执行
         else if((file_info.st_mode & S_IFMT) == S_IFDIR)
         {
-            //把打开的文件路径放到str_temp字符串中(栈空间)
-            int str_length = 0;
-            str_length = strlen(path);
-            if(*(path + str_length) != '/')
-            {
-                str_length += strlen(p->d_name) + 2;
-                char path_tmp[str_length];
-                memset(path_tmp, 0, str_length);
-                strcat(path_tmp,path);
-                strcat(path_tmp,"/");
-                strcat(path_tmp,p->d_name);
-                scan_picture(path_tmp, head);
-            }
-            else
-            {
-                str_length += strlen(p->d_name) + 1;
-                char path_tmp[str_length];
-                memset(path_tmp, 0, str_length);
-                strcat(path_tmp,path);
-                strcat(path_tmp,p->d_name);
-                scan_picture(path_tmp, head);
-            }
+            perror("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            printf("11111");
+            scan_picture(path_tmp, head);
+            free(path_tmp);
         }
     }
     closedir(dp);

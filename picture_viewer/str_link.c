@@ -65,7 +65,6 @@ int link_travel(node_t head)
             printf("%s ", temp->item);
             temp = temp->next;
         }
-        printf("\n");
     }
     else
     {
