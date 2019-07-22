@@ -12,7 +12,7 @@ node_t link_create(node_t *head)
     }
     else
     {
-        perror("head == NULL");
+        perror("link_create: head == NULL");
     }
     return *head;
 }
@@ -30,15 +30,25 @@ node_t link_init(node_t head)
             temp = head->next;
         }
     }
-    printf("111\n");
+    else
+    {
+        perror("link_init: head == NULL");
+    }
     return head;
 }
 
 node_t link_destroy(node_t *head)
 {
-    link_init(*head);
-    free(*head);
-    *head = NULL;
+    if(*head != NULL)
+    {
+        link_init(*head);
+        free(*head);
+        *head = NULL;
+    }
+    else
+    {
+        perror("link_destroy: head == NULL");
+    }
     return *head;
 }
 
@@ -133,13 +143,12 @@ node_t node_insert(node_t head, element_t item, int position)
             temp->prev->next = new_node;
             temp->prev = new_node;
         }
-        return head;
     }
     else
     {
         perror("insert:head == null");
-        return head;
     }
+    return head;
 }
 
 
@@ -180,6 +189,10 @@ node_t node_delete(node_t head,  int position)
         temp->next->prev = temp->prev;
         temp->prev->next = temp->next;
         free(temp);
-        return head;
     }
+    else
+    {
+        perror("node_delete:head == null");
+    }
+    return head;
 }
