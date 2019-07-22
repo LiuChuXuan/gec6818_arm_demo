@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "input_sc.h"
-#include "open_dir.h"
-#include "link.h"
+#include "scan_picture.h"
+#include "str_link.h"
 
 #endif
