@@ -1,4 +1,4 @@
-#include "main.h"
+#include "picture_viewer.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,8 +28,7 @@ int main(int argc, char *argv[])
             {
                 count = 1;
             }
-            clear_sc();
-			show_bmp(node_get(picture_link, count)->item, 0, 0);
+			show_bmp_over(node_get(picture_link, count)->item, 0, 0);
             printf("no.%d\n\n",count);
         }
         else if(ret == MOVE_RIGHT || ret <= 400)
@@ -39,8 +38,7 @@ int main(int argc, char *argv[])
             {
                 count = picture_num;
             }
-            clear_sc();
-			show_bmp(node_get(picture_link, count)->item, 0, 0);
+			show_bmp_over(node_get(picture_link, count)->item, 0, 0);
             printf("no.%d\n\n",count);
 		}
     }

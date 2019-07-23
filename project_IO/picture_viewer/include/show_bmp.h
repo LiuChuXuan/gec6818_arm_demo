@@ -13,5 +13,6 @@
 
 int show_bmp(char *path, int x, int y);
 int clear_sc(void);
+int show_bmp_over(char *path, int x, int y);
 
 #endif

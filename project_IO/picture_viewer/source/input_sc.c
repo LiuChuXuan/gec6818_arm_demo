@@ -1,8 +1,10 @@
 #include "input_sc.h"
 
 
+
+
 //向左划返回MOVE_LEFT(666666)
-//向右划返回MOVE_RIGHT(999999)
+//向右划返回MOVE_RIGHT(-666666)
 int left_right(void)
 {
     int x = 0;

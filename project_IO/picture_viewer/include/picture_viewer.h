@@ -1,5 +1,5 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef _PICTURE_VIEWER_H_
+#define _PICTURE_VIEWER_H_
 
 #include <stdio.h>
 #include "input_sc.h"

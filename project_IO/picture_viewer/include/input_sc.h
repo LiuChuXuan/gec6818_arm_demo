@@ -11,7 +11,7 @@
 #include <stdlib.h>
 
 #define MOVE_LEFT        666666
-#define MOVE_RIGHT     999999
+#define MOVE_RIGHT     -666666
 
 int get_xy(int *x, int *y);
 int left_right(void);
