@@ -12,5 +12,6 @@
 #include "bit_bmp.h"
 
 int show_bmp(char *path, int x, int y);
+int clear_sc(void);
 
 #endif

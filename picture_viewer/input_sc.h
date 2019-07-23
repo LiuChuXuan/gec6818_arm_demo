@@ -8,6 +8,10 @@
 #include <unistd.h>
 #include <linux/input.h>
 #include <string.h>
+#include <stdlib.h>
+
+#define MOVE_LEFT        666666
+#define MOVE_RIGHT     999999
 
 int get_xy(int *x, int *y);
 int left_right(void);
