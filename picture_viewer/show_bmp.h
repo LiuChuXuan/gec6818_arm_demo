@@ -11,4 +11,6 @@
 #include <sys/mman.h>
 #include "bit_bmp.h"
 
+int show_bmp(char *path, int x, int y);
+
 #endif

@@ -7,7 +7,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <linux/input.h>
+#include <string.h>
 
+int get_xy(int *x, int *y);
 int left_right(void);
+
 
 #endif

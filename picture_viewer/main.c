@@ -8,27 +8,41 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    node_t aaaa = NULL;
-    link_create(&aaaa);
+    node_t picture_link = NULL;
+    link_create(&picture_link);
 
-    scan_picture(argv[1], aaaa);
+    scan_picture(argv[1], picture_link);
 
-    node_t temp = NULL;
+    int picture_num = link_length(picture_link);
+    int count = 0;
+    int x,y;
+    while(1)
+	{
+		get_xy(&x, &y);
+		printf("(%d,\t%d)\n",  x, y);
 
-    temp = node_get(aaaa,1);
-    printf("%s\n",temp->item);
-    temp = node_get(aaaa,2);
-    printf("%s\n",temp->item);
-    temp = node_get(aaaa,3);
-    printf("%s\n",temp->item);
+		if(x > 400)
+		{
+            count++;
+            if(count > picture_num)
+            {
+                count = 1;
+            }
+			show_bmp(node_get(picture_link, count)->item, 0, 0);
+		}
+        else
+		{
+            count--;
+            if(count <= 0)
+            {
+                count = picture_num;
+            }
+			show_bmp(node_get(picture_link, count)->item, 0, 0);
+		}
+	}
 
-    node_delete(aaaa,2);
-    temp = node_get(aaaa,2);
-    printf("%s\n",temp->item);
 
-    //link_travel(aaaa);
-
-    link_destroy(&aaaa);
+    link_destroy(&picture_link);
 
     return 0;
 }

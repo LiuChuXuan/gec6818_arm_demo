@@ -13,6 +13,7 @@ typedef struct node{
     struct node *prev;
 }node, *node_t;
 
+int link_length(node_t head);
 node_t link_create(node_t *head);
 node_t link_init(node_t head);
 node_t link_destroy(node_t *head);

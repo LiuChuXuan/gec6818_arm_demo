@@ -5,5 +5,6 @@
 #include "input_sc.h"
 #include "scan_picture.h"
 #include "str_link.h"
+#include "show_bmp.h"
 
 #endif

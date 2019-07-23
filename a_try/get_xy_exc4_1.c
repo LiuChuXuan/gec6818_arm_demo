@@ -33,7 +33,9 @@ int main(int argc, char **argv)
 
 int get_xy(int *x, int *y)
 {
-
+	int flag1=1, flag2=1;
+	struct input_event ts_buf;
+	bzero(&ts_buf, sizeof(ts_buf));
 	int  pressure;
 	//1、打开文件"/dev/input/event0"
 	int ts_fd = open("/dev/input/event0", O_RDWR);
@@ -42,9 +44,7 @@ int get_xy(int *x, int *y)
 		perror("open event0 faild!\n");
 		return -1;
 	}
-	int flag1=1, flag2=1;
-	struct input_event ts_buf;
-	bzero(&ts_buf, sizeof(ts_buf));
+
 	//不断的读取
 	while(1)
 	{
