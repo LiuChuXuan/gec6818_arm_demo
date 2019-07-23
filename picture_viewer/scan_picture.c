@@ -29,7 +29,6 @@ int is_bmp(char *path)
     //如果是bmp格式则返回1
     if(bmp_header.type == 19778)
     {
-        printf("It's not bmp file");
         fclose(fp_bmp);
         return 1;
     }
@@ -41,14 +40,14 @@ int is_bmp(char *path)
     }
 }
 
-int scan_picture(char *path, node_t head)
+int scan_picture(char *dir_path, node_t head)
 {
-    printf("path = %s\n",path);
     struct stat file_info;
     memset(&file_info, 0, sizeof(file_info));
     struct dirent *p = NULL;
 
-    DIR *dp = opendir(path);
+    //通过传进来的path创建 目录指针
+    DIR *dp = opendir(dir_path);
     if(dp == NULL)
     {
         perror("opendir failed");
@@ -63,8 +62,45 @@ int scan_picture(char *path, node_t head)
         {
             continue;
         }
+        char *file_path = NULL;
+        int str_length = 0;
+
+        str_length = strlen(dir_path);
+        if(*(dir_path + str_length - 1) != '/')
+        {
+            str_length += strlen(p->d_name) + 2;
+            file_path = (char*)malloc(str_length);
+            if(file_path != NULL)
+            {
+                memset(file_path, 0, str_length);
+                strcat(file_path,dir_path);
+                strcat(file_path,"/");
+                strcat(file_path,p->d_name);
+            }
+            else
+            {
+                perror("file path malloc failed");
+                exit(-1);
+            }
+        }
+        else
+        {
+            str_length += strlen(p->d_name) + 1;
+            file_path = (char*)malloc(str_length);
+            if(file_path != NULL)
+            {
+                memset(file_path, 0, str_length);
+                strcat(file_path,dir_path);
+                strcat(file_path,p->d_name);
+            }
+            else
+            {
+                perror("file path malloc failed");
+                exit(-1);
+            }
+        }
         
-        stat(p->d_name, &file_info);
+        stat(file_path, &file_info);
 
         if(((file_info.st_mode & S_IFMT) == S_IFBLK)
         ||((file_info.st_mode & S_IFMT) == S_IFCHR)
@@ -75,47 +111,17 @@ int scan_picture(char *path, node_t head)
             continue;
         }
 
-        //把打开的文件路径放到str_temp字符串中（堆空间）
-        char *path_tmp = NULL;
-        int str_length = 0;
-
-        str_length = strlen(path);
-        if(*(path + str_length - 1) != '/')
-        {
-            str_length += strlen(p->d_name) + 2;
-            path_tmp = (char*)malloc(str_length);
-            if(path_tmp != NULL)
-            {
-                memset(path_tmp, 0, str_length);
-                strcat(path_tmp,path);
-                strcat(path_tmp,"/");
-                strcat(path_tmp,p->d_name);
-            }
-        }
-        else
-        {
-            str_length += strlen(p->d_name) + 1;
-            path_tmp = (char*)malloc(str_length);
-            if(path_tmp != NULL)
-            {
-                memset(path_tmp, 0, str_length);
-                strcat(path_tmp,path);
-                strcat(path_tmp,p->d_name);
-            }
-        }
-        printf("%s\n",path_tmp);
-
         //如果是bmp图片，则将其路径放进链表里
         if((file_info.st_mode & S_IFMT) == S_IFREG)
         {
-            int ret = is_bmp(path_tmp);
+            int ret = is_bmp(file_path);
             if(ret == 1)
             {
-                node_insert(head, path_tmp, -1);
+                node_insert(head, file_path, -1);
             }
             else
             {
-                free(path_tmp);
+                free(file_path);
                 continue;
             }
         }
@@ -123,46 +129,9 @@ int scan_picture(char *path, node_t head)
         //如果是文件目录，则递归执行
         else if((file_info.st_mode & S_IFMT) == S_IFDIR)
         {
-            perror("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            printf("11111");
-            scan_picture(path_tmp, head);
-            free(path_tmp);
+            scan_picture(file_path, head);
+            free(file_path);
         }
-    }
-    closedir(dp);
-    return 0;
-}
-
-//打印出当前目录的文件信息
-int ls_dir(char *path)
-{
-    struct stat file_info;
-    struct dirent *p = NULL;
-    
-    DIR *dp = opendir(path);
-    if(dp == NULL)
-    {
-        perror("opendir failed");
-        return -1;
-    }
-
-    while((p = readdir(dp)) != NULL)
-    {
-            stat(p->d_name, &file_info);
-            printf("d_name: %s\n", p->d_name);
-
-            printf("File type:                ");
-           switch (file_info.st_mode & S_IFMT) 
-           {
-                case S_IFBLK:  printf("block device\n");               break;
-                case S_IFCHR:  printf("character device\n");      break;
-                case S_IFDIR:  printf("directory\n");                       break;
-                case S_IFIFO:  printf("FIFO/pipe\n");                     break;
-                case S_IFLNK:  printf("symlink\n");                        break;
-                case S_IFREG:  printf("regular file\n");                 break;
-                case S_IFSOCK: printf("socket\n");                        break;
-                default:       printf("unknown?\n");                          break;
-           }
     }
     closedir(dp);
     return 0;

@@ -11,6 +11,5 @@
 
 int is_bmp(char *path);
 int scan_picture(char *path, node_t head);
-int ls_dir(char *path);
 
 #endif

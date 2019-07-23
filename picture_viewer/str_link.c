@@ -62,7 +62,7 @@ int link_travel(node_t head)
         while(temp != head)
         {
             count++;
-            printf("%s ", temp->item);
+            printf("%s\n", temp->item);
             temp = temp->next;
         }
     }
@@ -151,15 +151,9 @@ node_t node_insert(node_t head, element_t item, int position)
     return head;
 }
 
-
-//删除第n个节点，n = position.
-node_t node_delete(node_t head,  int position)
+//get node by position
+node_t node_get(node_t head, int position)
 {
-    if(position == 0)
-    {
-        perror("node_insert不能删除头结点，第三个参数不能为0");
-        return head;
-    }
     if(head != NULL)
     {
         int count = 0;
@@ -186,14 +180,30 @@ node_t node_delete(node_t head,  int position)
                 temp = temp->prev;
             }
         }
-        temp->next->prev = temp->prev;
-        temp->prev->next = temp->next;
-        free(temp->item);
-        free(temp);
+        return temp;
     }
     else
     {
-        perror("node_delete:head == null");
+        perror("node_get : head == NULL");
     }
+    return head;
+}
+
+//删除第n个节点，n = position.
+node_t node_delete(node_t head,  int position)
+{
+    if(position == 0)
+    {
+        perror("node_delete不能删除头结点，即第二个参数不能为0");
+        return head;
+    }
+    
+    node_t temp = node_get(head, position);
+
+    temp->next->prev = temp->prev;
+    temp->prev->next = temp->next;
+    free(temp->item);
+    free(temp);
+
     return head;
 }
