@@ -7,4 +7,7 @@
 #include "str_link.h"
 #include "show_bmp.h"
 
+int picture_viewer(char *path);
+
+
 #endif

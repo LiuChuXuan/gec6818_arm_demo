@@ -13,7 +13,7 @@
 #define MOVE_LEFT        666666
 #define MOVE_RIGHT     -666666
 
-int get_xy(int *x, int *y);
+int get_xy_release(int *x,int *y);
 int left_right(void);
 
 
