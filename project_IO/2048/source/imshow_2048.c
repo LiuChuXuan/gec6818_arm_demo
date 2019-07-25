@@ -80,7 +80,7 @@ int get_direction(void)
     }
 }
 
-int move(list_2048_t new_game)
+int move(list_2048_t game)
 {
     int direction = 0, score = 0;
     while(1)
@@ -89,28 +89,32 @@ int move(list_2048_t new_game)
         switch(direction)
         {
             case MOVE_ABOVE: 
-                score += list_2048_move_above(new_game);
-                list_2048_randcreate(new_game);
+                score += list_2048_move_above(game);
+                list_2048_randcreate(game);
                 printf("above, score = %d\n", score);
-                list_2048_travel(new_game);
+                list_2048_travel(game);
+                imshow_2048(game);
                 break;
             case MOVE_BELOW:
-                score += list_2048_move_below(new_game);
-                list_2048_randcreate(new_game);
+                score += list_2048_move_below(game);
+                list_2048_randcreate(game);
                 printf("below, score = %d\n", score);
-                list_2048_travel(new_game);
+                list_2048_travel(game);
+                imshow_2048(game);
                 break;
             case MOVE_LEFT:
-                score += list_2048_move_left(new_game);
-                list_2048_randcreate(new_game);
+                score += list_2048_move_left(game);
+                list_2048_randcreate(game);
                 printf("left, score = %d\n", score);
-                list_2048_travel(new_game);
+                list_2048_travel(game);
+                imshow_2048(game);
                 break;
             case MOVE_RIGHT:
-                score += list_2048_move_right(new_game);
-                list_2048_randcreate(new_game);
+                score += list_2048_move_right(game);
+                list_2048_randcreate(game);
                 printf("right, score = %d\n", score);
-                list_2048_travel(new_game);
+                list_2048_travel(game);
+                imshow_2048(game);
                 break;
             default:
                 printf("move while switch default");
@@ -119,3 +123,70 @@ int move(list_2048_t new_game)
     }
     return score;
 }
+
+
+int imshow_2048(list_2048_t game)
+{
+    if(game == NULL)
+    {
+        perror("imshow game==NULL");
+        return -1;
+    }
+    show_bmp("./ui_img/menu2048.bmp", 0, 0);
+
+    int x = 0, y = 0;
+    int w = 0, h = 0;
+
+    for(y = 0; y < 4; y++)
+    {
+        h = y * 120;
+        for(x = 0; x < 4; x++)
+        {
+            w = x * 175;
+            switch(game->item[y][x])
+            {
+                case 0:
+                    show_bmp("./ui_img/item0.bmp", w, h);
+                    break;
+                case 2:
+                    show_bmp("./ui_img/item2.bmp", w, h);
+                    break;
+                case 4:
+                    show_bmp("./ui_img/item4.bmp", w, h);
+                    break;
+                case 8:
+                    show_bmp("./ui_img/item8.bmp", w, h);
+                    break;
+                case 16:
+                    show_bmp("./ui_img/item16.bmp", w, h);
+                    break;
+                case 32:
+                    show_bmp("./ui_img/item32.bmp", w, h);
+                    break;
+                case 64:
+                    show_bmp("./ui_img/item64.bmp", w, h);
+                    break;
+                case 128:
+                    show_bmp("./ui_img/item128.bmp", w, h);
+                    break;
+                case 246:
+                    show_bmp("./ui_img/item246.bmp", w, h);
+                    break;
+                case 512:
+                    show_bmp("./ui_img/item512.bmp", w, h);
+                    break;
+                case 1024:
+                    show_bmp("./ui_img/item1024.bmp", w, h);
+                    break;
+                case 2048:
+                    show_bmp("./ui_img/item2048.bmp", w, h);
+                    break;
+                default:
+                    printf("value over 2048\n");
+                    break;
+            }
+        }
+    }
+    return 0;
+}
+

@@ -74,7 +74,7 @@ int show_bmp(char *path, int x, int y)
     {
         perror("read error 40");
     }
-    printf("bmp_x = %d, bmp_y =  %d\n", bmp_info.width, bmp_info.height);
+    //printf("bmp_x = %d, bmp_y =  %d\n", bmp_info.width, bmp_info.height);
 
     //因为地址对齐，每行需要多补的字节数
 	ret = (4-bmp_info.width*3%4)%4; 
@@ -95,7 +95,7 @@ int show_bmp(char *path, int x, int y)
     }
     struct fb_var_screeninfo var;//用于存放屏幕设备的宽度、高度信息
     ioctl(fd_lcd,FBIOGET_VSCREENINFO,&var);//获取这个硬件信息
-    printf("lcd_x = %d, lcd_y = %d, pixel = %d\n", var.xres, var.yres, var.bits_per_pixel);
+    //printf("lcd_x = %d, lcd_y = %d, pixel = %d\n", var.xres, var.yres, var.bits_per_pixel);
 
     //内存映射
     unsigned int *memp = (unsigned int *)mmap(NULL,var.xres*var.yres*var.bits_per_pixel/8, 
@@ -112,6 +112,7 @@ int show_bmp(char *path, int x, int y)
 
     //将图片读取到bmp_buf再整合到lcd_buf中
     int w_count,h_count;
+
 	for(h_count = 0; h_count < bmp_info.height; h_count++)
 	{
 		for(w_count = 0; w_count < bmp_info.width; w_count++)
@@ -123,13 +124,15 @@ int show_bmp(char *path, int x, int y)
 		}
 	}
 
+    int h = (bmp_info.height + y) > var.yres ? (var.yres - y) : bmp_info.height;
+    int w = (bmp_info.width + x) > var.xres ? (var.xres - x) : bmp_info.width;
     //将图片写入到lcd屏幕文件（偏移x，y）
-    for(h_count = 0; h_count < bmp_info.height; h_count++)
+    for(h_count = 0; h_count < h; h_count++)
     {
-        for(w_count = 0; w_count < bmp_info.width; w_count++)
+        for(w_count = 0; w_count < w; w_count++)
         {
             *(memp + (w_count+x) + (h_count+y)*var.xres) = 
-                            lcd_buf[w_count + (bmp_info.height - h_count - 1) * bmp_info.width];
+                                                                    lcd_buf[w_count + (h - h_count - 1) * w];
         }
     }
 
