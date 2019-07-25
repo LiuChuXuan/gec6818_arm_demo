@@ -8,7 +8,8 @@ ALL_C = \
 ./picture_viewer/source/picture_viewer.c \
 \
 ./2048/source/game_2048.c \
-./2048/source/list_2048.c 
+./2048/source/list_2048.c \
+./2048/source/imshow_2048.c 
 
 2048_h = ./2048/include 
 picture_h = ./picture_viewer/include 

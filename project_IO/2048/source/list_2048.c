@@ -40,7 +40,7 @@ list_2048_t list_2048_create(list_2048_t *new_list)
     return *new_list;
 }
 
-list_2048_t list_2048_set(list_2048_t head, int x, int y, element_t item)
+list_2048_t list_2048_set(list_2048_t head, int x, int y, elen_2048_t item)
 {
     if(head != NULL)
     {

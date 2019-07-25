@@ -52,6 +52,10 @@ int get_direction(void)
     while((x0 == x1) && (y0 == y1))
     {
         get_xy(&x0, &y0, &x1, &y1);
+        if(x1 > 700 && x0 >700 && y0 > 380 && y0 >380)
+        {
+            return QUIT_2048;
+        }
 
         x_abs = ((x0 - x1) >= 0) ? (x0 - x1) : (-(x0 - x1));
         y_abs = ((y0 - y1) >= 0) ? (y0 - y1) : (-(y0 - y1));
@@ -78,50 +82,6 @@ int get_direction(void)
             }
         }
     }
-}
-
-int move(list_2048_t game)
-{
-    int direction = 0, score = 0;
-    while(1)
-    {
-        direction = get_direction();
-        switch(direction)
-        {
-            case MOVE_ABOVE: 
-                score += list_2048_move_above(game);
-                list_2048_randcreate(game);
-                printf("above, score = %d\n", score);
-                list_2048_travel(game);
-                imshow_2048(game);
-                break;
-            case MOVE_BELOW:
-                score += list_2048_move_below(game);
-                list_2048_randcreate(game);
-                printf("below, score = %d\n", score);
-                list_2048_travel(game);
-                imshow_2048(game);
-                break;
-            case MOVE_LEFT:
-                score += list_2048_move_left(game);
-                list_2048_randcreate(game);
-                printf("left, score = %d\n", score);
-                list_2048_travel(game);
-                imshow_2048(game);
-                break;
-            case MOVE_RIGHT:
-                score += list_2048_move_right(game);
-                list_2048_randcreate(game);
-                printf("right, score = %d\n", score);
-                list_2048_travel(game);
-                imshow_2048(game);
-                break;
-            default:
-                printf("move while switch default");
-                break;
-        }
-    }
-    return score;
 }
 
 
