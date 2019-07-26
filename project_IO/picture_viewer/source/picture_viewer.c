@@ -2,6 +2,12 @@
 
 int picture_viewer(char *path)
 {
+    if(path == NULL)
+    {
+        perror("picture_viewer path == NULL");
+        return -1;
+    }
+
     node_t picture_link = NULL;
     link_create(&picture_link);
 
@@ -16,8 +22,14 @@ int picture_viewer(char *path)
     int ret = 0;
     while(1)
     {
-        ret = left_right();
-		if(ret == MOVE_LEFT || ret > 400)
+        ret = ch_img();
+        if(ret == QUIT)
+        {
+            printf("quit picture viwer!!!!!");
+            link_destroy(&picture_link);
+            return 0;
+        }
+		else if(ret == MOVE_LEFT || ret > 400)
 		{
             count++;
             if(count > picture_num)
@@ -37,6 +49,7 @@ int picture_viewer(char *path)
 			show_bmp_over(node_get(picture_link, count)->item, 0, 0);
             printf("no.%d\n\n",count);
 		}
+
     }
     link_destroy(&picture_link);
 

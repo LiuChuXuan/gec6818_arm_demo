@@ -21,6 +21,7 @@ int main(void)
         }
         else if(x > 700)
         {
+            clear_sc();
             break;
         }
     }

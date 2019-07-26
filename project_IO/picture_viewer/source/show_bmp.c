@@ -35,7 +35,6 @@ int clear_sc(void)
     return 0;
 }
 
-
 //输入图片的路径、左上角位置(x，y)，在LCD相应位置显示图片。
 int show_bmp(char *path, int x, int y)
 {
@@ -235,13 +234,15 @@ int show_bmp_over(char *path, int x, int y)
 		}
 	}
 
+    int h = (bmp_info.height + y) > var.yres ? (var.yres - y) : bmp_info.height;
+    int w = (bmp_info.width + x) > var.xres ? (var.xres - x) : bmp_info.width;
     //将图片写入到lcd屏幕文件（偏移x，y）
-    for(h_count = 0; h_count < bmp_info.height; h_count++)
+    for(h_count = 0; h_count < h; h_count++)
     {
-        for(w_count = 0; w_count < bmp_info.width; w_count++)
+        for(w_count = 0; w_count < w; w_count++)
         {
             *(memp + (w_count+x) + (h_count+y)*var.xres) = 
-                            lcd_buf[w_count + (bmp_info.height - h_count - 1) * bmp_info.width];
+                                                                    lcd_buf[w_count + (h - h_count - 1) * w];
         }
     }
 

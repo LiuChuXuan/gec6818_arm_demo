@@ -12,9 +12,11 @@
 
 #define MOVE_LEFT        666666
 #define MOVE_RIGHT     -666666
+#define QUIT          115201
 
+int get_xy(int *x0, int *y0, int *x1, int *y1);
 int get_xy_release(int *x,int *y);
-int left_right(void);
+int ch_img(void);
 
 
 #endif
