@@ -252,3 +252,9 @@ int show_bmp_over(char *path, int x, int y)
     close(fd_lcd);
     return 0;
 }
+/* 
+int layer_merge(unsigned int *img[], int x[], int y[])
+{
+
+}
+*/

@@ -2,7 +2,7 @@
 
 int game_2048(void)
 {
-    int direction = 0, score = 0, ret = 0;
+    int direction = 0, ret = 0;
 
 //1.创建新游戏
     list_2048_t game = NULL;
@@ -21,23 +21,23 @@ int game_2048(void)
         switch(direction)
         {
             case MOVE_ABOVE: 
-                score += list_2048_move_above(game);
-                printf("above, score = %d\n", score);
+                game->score += list_2048_move_above(game);
+                printf("above, game->score = %d\n", game->score);
                 break;
             
             case MOVE_BELOW:
-                score += list_2048_move_below(game);
-                printf("below, score = %d\n", score);
+                game->score += list_2048_move_below(game);
+                printf("below, game->score = %d\n", game->score);
                 break;
 
             case MOVE_LEFT:
-                score += list_2048_move_left(game);
-                printf("left, score = %d\n", score);
+                game->score += list_2048_move_left(game);
+                printf("left, game->score = %d\n", game->score);
                 break;
 
             case MOVE_RIGHT:
-                score += list_2048_move_right(game);
-                printf("right, score = %d\n", score);
+                game->score += list_2048_move_right(game);
+                printf("right, game->score = %d\n", game->score);
                 break;
 
             case QUIT:

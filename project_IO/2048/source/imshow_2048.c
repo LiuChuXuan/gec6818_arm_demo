@@ -103,6 +103,100 @@ int imshow_2048(list_2048_t game)
             }
         }
     }
+    w = 778;
+
+    if(game->score >= 10)
+    {
+        int count = 0;
+        for(count = 0; ; count++)
+        {
+            y = 1;
+            for(x = 0; x < count; x++)
+            {
+                y *= 10;
+            }
+            switch((game->score/y) % 10)
+            {
+                case 0:
+                    show_bmp("./ui_img/score0.bmp", w, 80);
+                    break;
+                case 1:
+                    show_bmp("./ui_img/score1.bmp", w, 80);
+                    break;
+                case 2:
+                    show_bmp("./ui_img/score2.bmp", w, 80);
+                    break;
+                case 3:
+                    show_bmp("./ui_img/score3.bmp", w, 80);
+                    break;
+                case 4:
+                    show_bmp("./ui_img/score4.bmp", w, 80);
+                    break;
+                case 5:
+                    show_bmp("./ui_img/score5.bmp", w, 80);
+                    break;
+                case 6:
+                    show_bmp("./ui_img/score6.bmp", w, 80);
+                    break;
+                case 7:
+                    show_bmp("./ui_img/score7.bmp", w, 80);
+                    break;
+                case 8:
+                    show_bmp("./ui_img/score8.bmp", w, 80);
+                    break;
+                case 9:
+                    show_bmp("./ui_img/score9.bmp", w, 80);
+                    break;
+                default:
+                    perror("score error");
+                    exit(-1);
+            }
+            if(game->score/(y*10) == 0)
+            {
+                break;
+            }
+            w = w - 19;
+        }
+    }
+    else
+    {
+        switch(game->score)
+        {
+            case 0:
+                show_bmp("./ui_img/score0.bmp", w, 80);
+                break;
+            case 1:
+                show_bmp("./ui_img/score1.bmp", w, 80);
+                break;
+            case 2:
+                show_bmp("./ui_img/score2.bmp", w, 80);
+                break;
+            case 3:
+                show_bmp("./ui_img/score3.bmp", w, 80);
+                break;
+            case 4:
+                show_bmp("./ui_img/score4.bmp", w, 80);
+                break;
+            case 5:
+                show_bmp("./ui_img/score5.bmp", w, 80);
+                break;
+            case 6:
+                show_bmp("./ui_img/score6.bmp", w, 80);
+                break;
+            case 7:
+                show_bmp("./ui_img/score7.bmp", w, 80);
+                break;
+            case 8:
+                show_bmp("./ui_img/score8.bmp", w, 80);
+                break;
+            case 9:
+                show_bmp("./ui_img/score9.bmp", w, 80);
+                break;
+            default:
+                perror("score error");
+                exit(-1);
+        }
+    }
     return 0;
 }
 

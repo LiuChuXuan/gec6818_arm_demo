@@ -10,6 +10,7 @@ typedef int elen_2048_t;
 
 typedef struct list_2048{
     int len;
+    int score;
     elen_2048_t item[4][4];
 }list_2048, *list_2048_t;
 
