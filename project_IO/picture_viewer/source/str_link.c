@@ -3,7 +3,7 @@
 node_t link_create(node_t *head)
 {
     *head = (node_t)malloc(sizeof(node));
-    if(head != NULL)
+    if(*head != NULL)
     {
         memset(*head, 0, sizeof(node));
         (*head)->item = 0;
@@ -76,11 +76,9 @@ int link_travel(node_t head)
 
 int link_length(node_t head)
 {
-
     int count = 0;
     if(head != NULL)
     {
-
         node_t temp = head->next;
         while(temp != head)
         {
@@ -99,7 +97,6 @@ int link_length(node_t head)
 //insert by position,插入到第n个，n = position.
 node_t node_insert(node_t head, element_t item, int position)
 {
-
     if(position == 0)
     {
         perror("node_insert不能插入到头结点，第三个参数不能为0");
@@ -118,6 +115,11 @@ node_t node_insert(node_t head, element_t item, int position)
         }
 
         node_t new_node = (node_t)malloc(sizeof(node));
+        if(new_node == NULL)
+        {
+            perror("malloc new node failed");
+            exit(-1);
+        }
         memset(new_node, 0, sizeof(node));
         new_node->item = item;
 
