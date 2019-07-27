@@ -76,8 +76,6 @@ list_2048_t list_2048_create(list_2048_t *new_list)
     return *new_list;
 }
 
-
-
 int list_2048_travel(list_2048_t game)
 {
     if(game != NULL)
@@ -324,4 +322,44 @@ int list_2048_move_below(list_2048_t game)
 
     }    
     return score;
+}
+
+int list_2048_save(list_2048_t game)
+{
+    FILE *fp = fopen("./save_2048","w");
+    if(fp == NULL)
+    {
+        perror("fopen error\n");
+        return -1;
+    }
+
+    int ret = fwrite(game, sizeof(list_2048), 1, fp);
+    if(ret != 1)
+    {
+        perror("save game error\n");
+        return -1;
+    }
+
+    fclose(fp);
+    return 0;
+}
+
+int list_2048_load(list_2048_t game)
+{
+    FILE *fp = fopen("./save_2048","r");
+    if(fp == NULL)
+    {
+        perror("fopen error\n");
+        return -1;
+    }
+
+    int ret = fread(game, sizeof(list_2048), 1, fp);
+    if(ret != 1)
+    {
+        perror("load game error\n");
+        return -1;
+    }
+
+    fclose(fp);
+    return 0;
 }

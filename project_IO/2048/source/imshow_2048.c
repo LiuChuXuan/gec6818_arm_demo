@@ -1,7 +1,7 @@
 #include "imshow_2048.h"
 
 //判断上下左右
-int get_direction(void)
+int get_direction_2048(void)
 {
     int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
     unsigned int x_abs = 0, y_abs = 0;
@@ -11,6 +11,10 @@ int get_direction(void)
         if(x1 > 700 && x0 >700 && y0 > 380 && y0 >380)
         {
             return QUIT;
+        }
+        if(x1 > 700 && x0 > 700 && y0 > 180 && y1 > 180 && y0 < 280 && y1 < 280)
+        {
+            return GAME_2048_RESTART;
         }
 
         x_abs = ((x0 - x1) >= 0) ? (x0 - x1) : (-(x0 - x1));
@@ -96,6 +100,12 @@ int imshow_2048(list_2048_t game)
                     break;
                 case 2048:
                     show_bmp("./ui_img/item2048.bmp", w, h);
+                    break;
+                case 4096:
+                    show_bmp("./ui_img/item4096.bmp", w, h);
+                    break;
+                case 8192:
+                    show_bmp("./ui_img/item8192.bmp", w, h);
                     break;
                 default:
                     printf("value over 2048\n");

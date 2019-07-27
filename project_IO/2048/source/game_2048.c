@@ -7,8 +7,12 @@ int game_2048(void)
 //1.创建新游戏
     list_2048_t game = NULL;
     list_2048_create(&game);
-    list_2048_randcreate(game);
-    list_2048_randcreate(game);
+    ret = list_2048_load(game);
+    if(ret == -1)
+    {
+        list_2048_randcreate(game);
+        list_2048_randcreate(game);
+    }
 
 //2.显示开局棋盘
     list_2048_travel(game);
@@ -17,7 +21,7 @@ int game_2048(void)
 //3.响应上下左右交互
     while(1)
     {
-        direction = get_direction();
+        direction = get_direction_2048();
         switch(direction)
         {
             case MOVE_ABOVE: 
@@ -43,6 +47,11 @@ int game_2048(void)
             case QUIT:
                 list_2048_destroy(&game);
                 return 0;
+            
+            case GAME_2048_RESTART:
+                list_2048_init(game);
+                list_2048_randcreate(game);
+                break;
 
             default:
                 printf("move while switch default\n");
@@ -55,6 +64,13 @@ int game_2048(void)
             perror("game over\n");
             break;
         }
+
+        ret = list_2048_save(game);
+        if(ret == -1)
+        {
+            break;            
+        }
+
         list_2048_travel(game);
         imshow_2048(game);
     }
