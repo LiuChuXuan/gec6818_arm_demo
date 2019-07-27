@@ -363,3 +363,9 @@ int list_2048_load(list_2048_t game)
     fclose(fp);
     return 0;
 }
+/* 
+int list_2048_log(list_2048_t game)
+{
+
+}
+*/

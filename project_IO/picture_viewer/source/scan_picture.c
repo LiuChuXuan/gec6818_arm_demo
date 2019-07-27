@@ -63,16 +63,16 @@ int scan_picture(char *dir_path, node_t head)
             continue;
         }
         char *file_path = NULL;
-        int str_length = 0;
+        int str_size = 0;
 
-        str_length = strlen(dir_path);
-        if(*(dir_path + str_length - 1) != '/')
+        str_size = strlen(dir_path);
+        if(*(dir_path + str_size - 1) != '/')             //判断目录字符串最后一个字符是不是'/'
         {
-            str_length += strlen(p->d_name) + 2;
-            file_path = (char*)malloc(str_length);
+            str_size += strlen(p->d_name) + 2;    //如果不是'/'，那要加上2，一个是'/'，一个是'/0'
+            file_path = (char*)malloc(str_size);
             if(file_path != NULL)
             {
-                memset(file_path, 0, str_length);
+                memset(file_path, 0, str_size);
                 strcat(file_path,dir_path);
                 strcat(file_path,"/");
                 strcat(file_path,p->d_name);
@@ -83,13 +83,13 @@ int scan_picture(char *dir_path, node_t head)
                 exit(-1);
             }
         }
-        else
+        else            //如果是'/'则只需要加上1，即'/0'所占的空间
         {
-            str_length += strlen(p->d_name) + 1;
-            file_path = (char*)malloc(str_length);
+            str_size += strlen(p->d_name) + 1;
+            file_path = (char*)malloc(str_size);
             if(file_path != NULL)
             {
-                memset(file_path, 0, str_length);
+                memset(file_path, 0, str_size);
                 strcat(file_path,dir_path);
                 strcat(file_path,p->d_name);
             }
@@ -117,7 +117,7 @@ int scan_picture(char *dir_path, node_t head)
             int ret = is_bmp(file_path);
             if(ret == 1)
             {
-                node_insert(head, file_path, -1);
+                list_insert_node(head, file_path, str_size, -1);
             }
             else
             {

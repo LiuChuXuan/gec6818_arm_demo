@@ -137,39 +137,37 @@ node_t list_insert_node(node_t head, void *item, int size, int position)
 //get node by position
 node_t list_get_node(node_t head, int position)
 {
-    if(head != NULL)
-    {
-        int count = 0;
-        node_t temp = head;
-        int length = list_length(head);
-
-        if((position < 0 ? -position : position) > length)
-        {
-            perror("所给位置超过链表长度");
-            return head;
-        }
-
-        if(position > 0)
-        {
-            for(count = 0; count < position; count++)
-            {
-                temp = temp->next;
-            }
-        }
-        else if(position < 0)
-        {
-            for(count = 0; count > position; count--)
-            {
-                temp = temp->prev;
-            }
-        }
-        return temp;
-    }
-    else
+    if(head == NULL)
     {
         perror("list_get_node == NULL");
+        return head;
     }
-    return head;
+
+    int count = 0;
+    node_t temp = head;
+    int length = list_length(head);
+
+    if((position < 0 ? -position : position) > length)
+    {
+        perror("所给位置超过链表长度");
+        return NULL;
+    }
+
+    if(position > 0)
+    {
+        for(count = 0; count < position; count++)
+        {
+            temp = temp->next;
+        }
+    }
+    else if(position < 0)
+    {
+        for(count = 0; count > position; count--)
+        {
+            temp = temp->prev;
+        }
+    }
+    return temp;
 }
 
 //删除第n个节点，n = position.

@@ -8,16 +8,16 @@ int picture_viewer(char *path)
         return -1;
     }
 
-    node_t picture_link = NULL;
-    link_create(&picture_link);
+    node_t img_list = NULL;
+    list_create(&img_list);
 
-    scan_picture(path, picture_link);
+    scan_picture(path, img_list);
 
-    int picture_num = link_length(picture_link);
+    int picture_num = list_length(img_list);
     printf("picture quantity: %d\n",picture_num);
 
     int count = 1;
-	show_bmp_over(node_get(picture_link, count)->item, 0, 0);
+	show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
 
     int ret = 0;
     while(1)
@@ -26,7 +26,7 @@ int picture_viewer(char *path)
         if(ret == QUIT)
         {
             printf("quit picture viwer!!!!!");
-            link_destroy(&picture_link);
+            list_destroy(&img_list);
             return 0;
         }
 		else if(ret == MOVE_LEFT || ret > 400)
@@ -36,7 +36,7 @@ int picture_viewer(char *path)
             {
                 count = 1;
             }
-			show_bmp_over(node_get(picture_link, count)->item, 0, 0);
+			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
             printf("no.%d\n\n",count);
         }
         else if(ret == MOVE_RIGHT || ret <= 400)
@@ -46,12 +46,11 @@ int picture_viewer(char *path)
             {
                 count = picture_num;
             }
-			show_bmp_over(node_get(picture_link, count)->item, 0, 0);
+			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
             printf("no.%d\n\n",count);
 		}
-
     }
-    link_destroy(&picture_link);
 
+    list_destroy(&img_list);
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "input_sc.h"
 #include "scan_picture.h"
-#include "str_link.h"
+#include "list.h"
 #include "show_bmp.h"
 
 int picture_viewer(char *path);

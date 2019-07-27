@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include "bit_bmp.h"
-#include "str_link.h"
+#include "list.h"
 
 int is_bmp(char *path);
 int scan_picture(char *path, node_t head);
