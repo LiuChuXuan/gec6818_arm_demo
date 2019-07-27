@@ -8,13 +8,18 @@ int get_direction_2048(void)
     while((x0 == x1) && (y0 == y1))
     {
         get_xy(&x0, &y0, &x1, &y1);
-        if(x1 > 700 && x0 >700 && y0 > 380 && y0 >380)
-        {
-            return QUIT;
-        }
+
         if(x1 > 700 && x0 > 700 && y0 > 180 && y1 > 180 && y0 < 280 && y1 < 280)
         {
             return GAME_2048_RESTART;
+        }
+        if(x1 > 700 && x0 > 700 && y0 > 280 && y1 > 280 && y0 < 380 && y1 < 380)
+        {
+            return GAME_2048_REVOKE;
+        }
+        if(x1 > 700 && x0 >700 && y0 > 380 && y0 >380)
+        {
+            return QUIT;
         }
 
         x_abs = ((x0 - x1) >= 0) ? (x0 - x1) : (-(x0 - x1));

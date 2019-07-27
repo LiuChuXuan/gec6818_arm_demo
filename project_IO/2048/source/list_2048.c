@@ -6,7 +6,7 @@ int list_2048_set(list_2048_t game, int x, int y, elen_2048_t item)
     {
         if(x<0 || x>3 || y<0 || y>3)
         {
-            perror("list 2048 set failed\n");
+            perror("list 2048 set failed");
             return -1;
         }
         if(game->item[y][x] == 0 && item != 0)
@@ -21,7 +21,7 @@ int list_2048_set(list_2048_t game, int x, int y, elen_2048_t item)
     }
     else
     {
-        perror("list 2048 init game == NULL\n");
+        perror("list 2048 init game == NULL");
     }
     return 0; 
 }
@@ -30,13 +30,13 @@ int list_2048_randcreate(list_2048_t game)
 {
     if(game == NULL)
     {
-        perror("2048 randcreate == NULL\n");
+        perror("2048 randcreate == NULL");
         return -1;
     }
 
     if(game->len == 16)
     {
-        perror("2048 randcreate : FULL\n");
+        perror("2048 randcreate : FULL");
         return -2;
     }
 
@@ -64,7 +64,7 @@ list_2048_t list_2048_init(list_2048_t game)
     }
     else
     {
-        perror("list 2048 init == NULL\n");
+        perror("list 2048 init == NULL");
     }
     return game;
 }
@@ -108,7 +108,7 @@ int list_2048_move_left(list_2048_t game)
 {
     if(game == NULL)
     {
-        perror("2048 move left game == NULL\n");
+        perror("2048 move left game == NULL");
         return -1;
     }
 
@@ -161,7 +161,7 @@ int list_2048_move_right(list_2048_t game)
 {
     if(game == NULL)
     {
-        perror("2048 move right game == NULL\n");
+        perror("2048 move right game == NULL");
         return -1;
     }
     int x = 0, y = 0, count = 0, score = 0, flag = 0;
@@ -217,7 +217,7 @@ int list_2048_move_above(list_2048_t game)
 {
     if(game == NULL)
     {
-        perror("2048 move above game == NULL\n");
+        perror("2048 move above game == NULL");
         return -1;
     }
 
@@ -271,7 +271,7 @@ int list_2048_move_below(list_2048_t game)
 {
     if(game == NULL)
     {
-        perror("2048 move below game == NULL\n");
+        perror("2048 move below game == NULL");
         return -1;
     }
 
@@ -329,14 +329,14 @@ int list_2048_save(list_2048_t game)
     FILE *fp = fopen("./save_2048","w");
     if(fp == NULL)
     {
-        perror("fopen error\n");
+        perror("fopen error");
         return -1;
     }
 
     int ret = fwrite(game, sizeof(list_2048), 1, fp);
     if(ret != 1)
     {
-        perror("save game error\n");
+        perror("save game error");
         return -1;
     }
 
@@ -349,23 +349,37 @@ int list_2048_load(list_2048_t game)
     FILE *fp = fopen("./save_2048","r");
     if(fp == NULL)
     {
-        perror("fopen error\n");
+        perror("fopen error");
         return -1;
     }
 
     int ret = fread(game, sizeof(list_2048), 1, fp);
     if(ret != 1)
     {
-        perror("load game error\n");
+        perror("load game error");
         return -1;
     }
 
     fclose(fp);
     return 0;
 }
-/* 
-int list_2048_log(list_2048_t game)
-{
 
+int list_2048_record(node_t game_log, list_2048_t game)
+{
+    if(game == NULL)
+    {
+        perror("2048 log game == NULL");
+        return -1;
+    }
+    if(game_log == NULL)
+    {
+        perror("2048 game log == NULL");
+        return -1;
+    }
+
+    list_2048_t temp = NULL;
+    list_2048_create(&temp);
+    memcpy(temp, game, sizeof(list_2048));
+    list_insert_node(game_log, temp, sizeof(list_2048), -1);
+    return 0;
 }
-*/

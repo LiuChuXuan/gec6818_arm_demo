@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "list.h"
 
 typedef int elen_2048_t;
 
@@ -30,5 +31,6 @@ int list_2048_full(list_2048_t head);
 int list_2048_save(list_2048_t game);
 int list_2048_load(list_2048_t game);
 
+int list_2048_record(node_t game_log, list_2048_t game);
 
 #endif
