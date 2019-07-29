@@ -23,11 +23,7 @@ int clear_sc(void)
         return -2;
     }
 
-    int i = 0;
-    for(i = 0;i < var.xres*var.yres; i++)
-    {
-        *(memp+i) = 0x00000000;
-    }
+    memset(memp, 0, var.xres*var.yres*var.bits_per_pixel/8);
 
     munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
 
@@ -211,11 +207,7 @@ int show_bmp_over(char *path, int x, int y)
         return -2;
     }
 
-    int count = 0;
-    for(count = 0;count < var.xres*var.yres; count++)
-    {
-        *(memp+count) = 0x00000000;
-    }
+    memset(memp, 0, var.xres*var.yres*var.bits_per_pixel/8);
 
     //存放准备写入到lcd上的数据
     unsigned int lcd_buf[ bmp_info.width * bmp_info.height];

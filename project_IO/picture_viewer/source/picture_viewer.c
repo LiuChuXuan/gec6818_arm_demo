@@ -14,10 +14,11 @@ int picture_viewer(char *path)
     scan_picture(path, img_list);
 
     int picture_num = list_length(img_list);
-    printf("picture quantity: %d\n",picture_num);
+    printf("picture amount: %d\n",picture_num);
 
     int count = 1;
 	show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
+    printf("Display the first picture\n");
 
     int ret = 0;
     while(1)
@@ -25,7 +26,7 @@ int picture_viewer(char *path)
         ret = ch_img();
         if(ret == QUIT)
         {
-            printf("quit picture viwer!!!!!");
+            printf("quit picture viwer!\n");
             list_destroy(&img_list);
             return 0;
         }
@@ -37,7 +38,7 @@ int picture_viewer(char *path)
                 count = 1;
             }
 			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
-            printf("no.%d\n\n",count);
+            printf("Next:(no. %d)\n\n",count);
         }
         else if(ret == MOVE_RIGHT || ret <= 400)
 		{
@@ -47,7 +48,7 @@ int picture_viewer(char *path)
                 count = picture_num;
             }
 			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
-            printf("no.%d\n\n",count);
+            printf("Previous:(no. %d)\n\n",count);
 		}
     }
 

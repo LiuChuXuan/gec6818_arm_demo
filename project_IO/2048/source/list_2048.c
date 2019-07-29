@@ -81,17 +81,17 @@ int list_2048_travel(list_2048_t game)
     if(game != NULL)
     {
         int x = 0, y = 0;
-        printf("|--------------------|\n");
+        printf("|-------------------------------|\n");
         for(y = 0; y < 4; y++)
         {
             printf("|");
             for(x = 0; x < 4; x++)
             {
-                printf("  %d  ", game->item[y][x]);
+                printf("    %d\t", game->item[y][x]);
             }
             printf("|\n");
         }
-        printf("|--------------------|\n\n");
+        printf("|-------------------------------|\n\n");
     }
     return 0;
 }

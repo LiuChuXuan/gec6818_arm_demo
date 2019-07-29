@@ -9,17 +9,17 @@ int main(void)
         show_bmp("./ui_img/menu.bmp", 0, 0);
         get_xy_release(&x, &y);
         //电子相册
-        if(x < 700 && y < 240)
+        if(x < 400 && y < 240)
         {
             picture_viewer("./img");
         }
 
         //2048
-        else if(x < 700 && y >= 240)
+        else if(x < 400 && y >= 240)
         {
             game_2048();
         }
-        else if(x > 700)
+        else if(x > 400 && y >= 240)
         {
             clear_sc();
             break;

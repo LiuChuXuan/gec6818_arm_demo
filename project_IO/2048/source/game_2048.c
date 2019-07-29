@@ -87,6 +87,8 @@ int game_2048(void)
         if(ret == -2)
         {
             perror("game over");
+            show_bmp("./ui_img/gameover_2048.bmp", 0, 0);
+            sleep(2);
             break;
         }
 

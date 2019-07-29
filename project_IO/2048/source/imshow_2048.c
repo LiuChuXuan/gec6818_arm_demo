@@ -94,8 +94,8 @@ int imshow_2048(list_2048_t game)
                 case 128:
                     show_bmp("./ui_img/item128.bmp", w, h);
                     break;
-                case 246:
-                    show_bmp("./ui_img/item246.bmp", w, h);
+                case 256:
+                    show_bmp("./ui_img/item256.bmp", w, h);
                     break;
                 case 512:
                     show_bmp("./ui_img/item512.bmp", w, h);
@@ -133,34 +133,34 @@ int imshow_2048(list_2048_t game)
             switch((game->score/y) % 10)
             {
                 case 0:
-                    show_bmp("./ui_img/score0.bmp", w, 80);
+                    show_bmp("./ui_img/score0.bmp", w, 45);
                     break;
                 case 1:
-                    show_bmp("./ui_img/score1.bmp", w, 80);
+                    show_bmp("./ui_img/score1.bmp", w, 45);
                     break;
                 case 2:
-                    show_bmp("./ui_img/score2.bmp", w, 80);
+                    show_bmp("./ui_img/score2.bmp", w, 45);
                     break;
                 case 3:
-                    show_bmp("./ui_img/score3.bmp", w, 80);
+                    show_bmp("./ui_img/score3.bmp", w, 45);
                     break;
                 case 4:
-                    show_bmp("./ui_img/score4.bmp", w, 80);
+                    show_bmp("./ui_img/score4.bmp", w, 45);
                     break;
                 case 5:
-                    show_bmp("./ui_img/score5.bmp", w, 80);
+                    show_bmp("./ui_img/score5.bmp", w, 45);
                     break;
                 case 6:
-                    show_bmp("./ui_img/score6.bmp", w, 80);
+                    show_bmp("./ui_img/score6.bmp", w, 45);
                     break;
                 case 7:
-                    show_bmp("./ui_img/score7.bmp", w, 80);
+                    show_bmp("./ui_img/score7.bmp", w, 45);
                     break;
                 case 8:
-                    show_bmp("./ui_img/score8.bmp", w, 80);
+                    show_bmp("./ui_img/score8.bmp", w, 45);
                     break;
                 case 9:
-                    show_bmp("./ui_img/score9.bmp", w, 80);
+                    show_bmp("./ui_img/score9.bmp", w, 45);
                     break;
                 default:
                     perror("score error");
@@ -178,34 +178,34 @@ int imshow_2048(list_2048_t game)
         switch(game->score)
         {
             case 0:
-                show_bmp("./ui_img/score0.bmp", w, 80);
+                show_bmp("./ui_img/score0.bmp", w, 45);
                 break;
             case 1:
-                show_bmp("./ui_img/score1.bmp", w, 80);
+                show_bmp("./ui_img/score1.bmp", w, 45);
                 break;
             case 2:
-                show_bmp("./ui_img/score2.bmp", w, 80);
+                show_bmp("./ui_img/score2.bmp", w, 45);
                 break;
             case 3:
-                show_bmp("./ui_img/score3.bmp", w, 80);
+                show_bmp("./ui_img/score3.bmp", w, 45);
                 break;
             case 4:
-                show_bmp("./ui_img/score4.bmp", w, 80);
+                show_bmp("./ui_img/score4.bmp", w, 45);
                 break;
             case 5:
-                show_bmp("./ui_img/score5.bmp", w, 80);
+                show_bmp("./ui_img/score5.bmp", w, 45);
                 break;
             case 6:
-                show_bmp("./ui_img/score6.bmp", w, 80);
+                show_bmp("./ui_img/score6.bmp", w, 45);
                 break;
             case 7:
-                show_bmp("./ui_img/score7.bmp", w, 80);
+                show_bmp("./ui_img/score7.bmp", w, 45);
                 break;
             case 8:
-                show_bmp("./ui_img/score8.bmp", w, 80);
+                show_bmp("./ui_img/score8.bmp", w, 45);
                 break;
             case 9:
-                show_bmp("./ui_img/score9.bmp", w, 80);
+                show_bmp("./ui_img/score9.bmp", w, 45);
                 break;
             default:
                 perror("score error");
