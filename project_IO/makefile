@@ -10,7 +10,9 @@ ALL_C = \
 ./2048/source/list_2048.c \
 ./2048/source/imshow_2048.c \
 \
-./list/list.c 
+./list/list.c \
+\
+./light_bee/led_beep.c 
 
 2048_h = ./2048/include 
 picture_h = ./picture_viewer/include 

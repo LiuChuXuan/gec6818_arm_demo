@@ -100,7 +100,7 @@ int scan_picture(char *dir_path, node_t head)
             }
         }
         
-        stat(file_path, &file_info);
+        lstat(file_path, &file_info);
 
         if(((file_info.st_mode & S_IFMT) == S_IFBLK)
         ||((file_info.st_mode & S_IFMT) == S_IFCHR)
