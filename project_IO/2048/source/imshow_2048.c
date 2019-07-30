@@ -1,6 +1,6 @@
 #include "imshow_2048.h"
 
-//判断上下左右
+//接受触摸屏的点击事件，判断上下左右滑屏
 int get_direction_2048(void)
 {
     int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
@@ -49,7 +49,7 @@ int get_direction_2048(void)
     }
 }
 
-
+//2048显示图片的函数
 int imshow_2048(list_2048_t game)
 {
     if(game == NULL)

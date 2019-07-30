@@ -85,11 +85,12 @@ int get_xy_release(int *x,int *y)
 	return 0;
 }
 
-//切换图片
+//判断是左还是右还是点击，然后切换显示图片
 int ch_img(void)
 {
 	int x0 = 0, y0 = 0, x1 = 0, y1 = 0;
 
+	//获取按下和松开时的坐标
 	int ret = get_xy(&x0, &y0, &x1, &y1);
 	if(ret != 0)
 	{
@@ -99,6 +100,7 @@ int ch_img(void)
 
 	printf("(%d,%d)\n",x0,x1);
 
+	//从屏幕边缘滑动，退出相册
 	if((x0 < 15) && (x1 > 50))
 	{
 		printf("quit l : (%d,%d)\n",x0,x1);
@@ -109,6 +111,7 @@ int ch_img(void)
 		printf("quit r : (%d,%d)\n",x0,x1);
 		return QUIT;
 	}
+
 	else
 	{
 		if(x0 > x1)
@@ -119,6 +122,7 @@ int ch_img(void)
 		{
 			return MOVE_RIGHT;
 		}
+		//如果x0 == x1 则是点击，返回x的值
 		else
 		{
 			return x0;

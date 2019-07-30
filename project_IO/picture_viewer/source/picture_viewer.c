@@ -11,6 +11,7 @@ int picture_viewer(char *path)
     node_t img_list = NULL;
     list_create(&img_list);
 
+    //递归地扫描path路径下的所有文件夹里的所有图片
     scan_picture(path, img_list);
 
     int picture_num = list_length(img_list);
@@ -30,6 +31,7 @@ int picture_viewer(char *path)
             list_destroy(&img_list);
             return 0;
         }
+        //向左滑动或者在屏幕右侧点击的时候切换到下一张图片
 		else if(ret == MOVE_LEFT || ret > 400)
 		{
             count++;
@@ -40,6 +42,7 @@ int picture_viewer(char *path)
 			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
             printf("Next:(no. %d)\n\n",count);
         }
+        //向右滑动或者在屏幕左侧点击的时候切换到上一张图片
         else if(ret == MOVE_RIGHT || ret <= 400)
 		{
             count--;

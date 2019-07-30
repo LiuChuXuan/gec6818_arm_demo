@@ -1,5 +1,6 @@
 #include "show_bmp.h"
 
+//把屏幕清成黑屏
 int clear_sc(void)
 {
     int fd = open("/dev/fb0",O_RDWR);
@@ -138,6 +139,7 @@ int show_bmp(char *path, int x, int y)
     return 0;
 }
 
+//显示图片，图片没有的地方用黑色覆盖
 int show_bmp_over(char *path, int x, int y)
 {
     int ret = 0;

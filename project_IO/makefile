@@ -12,7 +12,7 @@ ALL_C = \
 \
 ./list/list.c \
 \
-./light_bee/led_beep.c 
+./led_beep/led_beep.c 
 
 2048_h = ./2048/include 
 picture_h = ./picture_viewer/include 
@@ -21,5 +21,5 @@ list_h = ./list
 CC = arm-linux-gcc
 #CC = gcc
 
-a.out :  $(ALL_C) $(picture_h) 
+a.out :  $(ALL_C) $(picture_h) $(2048_h) $(list_h)
 	$(CC) $(ALL_C)  -I $(picture_h) -I $(2048_h) -I $(list_h) -o a.out

@@ -153,7 +153,6 @@ node_t list_get_node(node_t head, int position)
         return NULL;
     }
 
-
     if(position > 0)
     {
         for(count = 0; count < position; count++)
@@ -176,21 +175,20 @@ node_t list_delete_node(node_t head,  int position)
 {
     if(position == 0)
     {
-        perror("\nnode_delete不能删除头结点，即第二个参数不能为0");
+        perror("node_delete不能删除头结点，即第二个参数不能为0");
         return NULL;
     }
 
     if(head == NULL)
     {
-        perror("\nlist delete node head == NULL");
+        perror("list delete node head == NULL");
         return head;
     }
-
     
     node_t temp = list_get_node(head, position);
     if(temp == NULL)
     {
-        perror("\nlist delete node Position over limit");
+        perror("list delete node Position over limit");
         return NULL;
     }
 

@@ -44,14 +44,11 @@ int led_beep(void)
     ioctl(fd_led, LED3, status_led[2]);
     ioctl(fd_led, LED4, status_led[3]);
 
-    show_bmp("./ui_img/menu_led_bee.bmp", 0, 0);    
+    show_bmp("./ui_img/menu_led_beep.bmp", 0, 0);    
     show_bmp("./ui_img/led_close.bmp", 50, 90);
     show_bmp("./ui_img/led_close.bmp", 250, 90);
     show_bmp("./ui_img/led_close.bmp", 450, 90);
     show_bmp("./ui_img/led_close.bmp", 650, 90);
-
-
-
 
     while(1)
     {

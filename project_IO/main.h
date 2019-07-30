@@ -4,6 +4,6 @@
 #include "picture_viewer.h"
 #include "game_2048.h"
 
-int led_bee(void);
+int led_beep(void);
 
 #endif

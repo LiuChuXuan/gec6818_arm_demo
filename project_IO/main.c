@@ -14,6 +14,7 @@ int main(void)
             perror("pecture viewer");
             picture_viewer("./img");
         }
+        //控制LED灯的亮灭和蜂鸣器叫
         if(x > 400 && y < 240)
         {
             perror("led beep");
@@ -25,6 +26,7 @@ int main(void)
             perror("2048");
             game_2048();
         }
+        //退出程序
         else if(x > 400 && y >= 240)
         {
             clear_sc();

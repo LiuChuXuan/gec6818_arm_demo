@@ -192,24 +192,20 @@ int list_2048_move_right(list_2048_t game)
             }
         }
         //同等合并
+        for(x = 3; x >= 0; x--)
         {
-            for(x = 3; x >= 0; x--)
+            if(game->item[y][x] == game->item[y][x-1])
             {
-                if(game->item[y][x] == game->item[y][x-1])
+                game->item[y][x] *= 2;
+                score += game->item[y][x];
+                for(count = x; count > 1; count--)
                 {
-                    game->item[y][x] *= 2;
-                    score += game->item[y][x];
-                    for(count = x; count > 1; count--)
-                    {
-                        list_2048_set(game, count-1, y, game->item[y][count-2]);
-                    }
-                    list_2048_set(game, 0, y, 0);
+                    list_2048_set(game, count-1, y, game->item[y][count-2]);
                 }
+                list_2048_set(game, 0, y, 0);
             }
-
-
         }
-    }    
+    }
     return score;
 }
 
@@ -319,7 +315,6 @@ int list_2048_move_below(list_2048_t game)
                 }
             }
         }
-
     }    
     return score;
 }
