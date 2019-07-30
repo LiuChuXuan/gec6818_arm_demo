@@ -9,15 +9,24 @@ int get_direction_2048(void)
     {
         get_xy(&x0, &y0, &x1, &y1);
 
-        if(x1 > 700 && x0 > 700 && y0 > 180 && y1 > 180 && y0 < 280 && y1 < 280)
-        {
-            return GAME_2048_RESTART;
-        }
-        if(x1 > 700 && x0 > 700 && y0 > 280 && y1 > 280 && y0 < 380 && y1 < 380)
+        if(x0 > 565 && x1 >565 && 
+        x0 < 691 && x1 < 691 &&
+        y0 > 175 && y0 > 175 &&
+        y0 < 250 && y1 < 250)
         {
             return GAME_2048_REVOKE;
         }
-        if(x1 > 700 && x0 >700 && y0 > 380 && y0 >380)
+        if(x0 > 565 && x1 >565 && 
+        x0 < 691 && x1 < 691 &&
+        y0 > 275 && y0 > 275 &&
+        y0 < 345 && y1 < 345)
+        {
+            return GAME_2048_RESTART;
+        }
+        if(x0 > 565 && x1 >565 && 
+            x0 < 691 && x1 < 691 &&
+            y0 > 368 && y0 > 368 &&
+            y0 < 436 && y1 < 436)
         {
             return QUIT;
         }
@@ -64,10 +73,10 @@ int imshow_2048(list_2048_t game)
 
     for(y = 0; y < 4; y++)
     {
-        h = y * 120;
+        h = y * 90 + 70;
         for(x = 0; x < 4; x++)
         {
-            w = x * 175;
+            w = x * 90 + 70;
             switch(game->item[y][x])
             {
                 case 0:
@@ -118,7 +127,7 @@ int imshow_2048(list_2048_t game)
             }
         }
     }
-    w = 778;
+    w = 665;
 
     if(game->score >= 10)
     {
@@ -133,34 +142,34 @@ int imshow_2048(list_2048_t game)
             switch((game->score/y) % 10)
             {
                 case 0:
-                    show_bmp("./ui_img/score0.bmp", w, 45);
+                    show_bmp("./ui_img/score0.bmp", w, 105);
                     break;
                 case 1:
-                    show_bmp("./ui_img/score1.bmp", w, 45);
+                    show_bmp("./ui_img/score1.bmp", w, 105);
                     break;
                 case 2:
-                    show_bmp("./ui_img/score2.bmp", w, 45);
+                    show_bmp("./ui_img/score2.bmp", w, 105);
                     break;
                 case 3:
-                    show_bmp("./ui_img/score3.bmp", w, 45);
+                    show_bmp("./ui_img/score3.bmp", w, 105);
                     break;
                 case 4:
-                    show_bmp("./ui_img/score4.bmp", w, 45);
+                    show_bmp("./ui_img/score4.bmp", w, 105);
                     break;
                 case 5:
-                    show_bmp("./ui_img/score5.bmp", w, 45);
+                    show_bmp("./ui_img/score5.bmp", w, 105);
                     break;
                 case 6:
-                    show_bmp("./ui_img/score6.bmp", w, 45);
+                    show_bmp("./ui_img/score6.bmp", w, 105);
                     break;
                 case 7:
-                    show_bmp("./ui_img/score7.bmp", w, 45);
+                    show_bmp("./ui_img/score7.bmp", w, 105);
                     break;
                 case 8:
-                    show_bmp("./ui_img/score8.bmp", w, 45);
+                    show_bmp("./ui_img/score8.bmp", w, 105);
                     break;
                 case 9:
-                    show_bmp("./ui_img/score9.bmp", w, 45);
+                    show_bmp("./ui_img/score9.bmp", w, 105);
                     break;
                 default:
                     perror("score error");
@@ -170,7 +179,7 @@ int imshow_2048(list_2048_t game)
             {
                 break;
             }
-            w = w - 19;
+            w = w - 25;
         }
     }
     else
@@ -178,34 +187,34 @@ int imshow_2048(list_2048_t game)
         switch(game->score)
         {
             case 0:
-                show_bmp("./ui_img/score0.bmp", w, 45);
+                show_bmp("./ui_img/score0.bmp", w, 105);
                 break;
             case 1:
-                show_bmp("./ui_img/score1.bmp", w, 45);
+                show_bmp("./ui_img/score1.bmp", w, 105);
                 break;
             case 2:
-                show_bmp("./ui_img/score2.bmp", w, 45);
+                show_bmp("./ui_img/score2.bmp", w, 105);
                 break;
             case 3:
-                show_bmp("./ui_img/score3.bmp", w, 45);
+                show_bmp("./ui_img/score3.bmp", w, 105);
                 break;
             case 4:
-                show_bmp("./ui_img/score4.bmp", w, 45);
+                show_bmp("./ui_img/score4.bmp", w, 105);
                 break;
             case 5:
-                show_bmp("./ui_img/score5.bmp", w, 45);
+                show_bmp("./ui_img/score5.bmp", w, 105);
                 break;
             case 6:
-                show_bmp("./ui_img/score6.bmp", w, 45);
+                show_bmp("./ui_img/score6.bmp", w, 105);
                 break;
             case 7:
-                show_bmp("./ui_img/score7.bmp", w, 45);
+                show_bmp("./ui_img/score7.bmp", w, 105);
                 break;
             case 8:
-                show_bmp("./ui_img/score8.bmp", w, 45);
+                show_bmp("./ui_img/score8.bmp", w, 105);
                 break;
             case 9:
-                show_bmp("./ui_img/score9.bmp", w, 45);
+                show_bmp("./ui_img/score9.bmp", w, 105);
                 break;
             default:
                 perror("score error");
