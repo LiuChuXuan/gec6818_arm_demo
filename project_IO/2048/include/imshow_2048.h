@@ -5,15 +5,29 @@
 #include "list_2048.h"
 #include "show_bmp.h"
 
-#define MOVE_ABOVE                    999999
-#define MOVE_BELOW                  -999999
-#define GAME_2048_RESTART  123210
-#define GAME_2048_REVOKE    6543210
-
+#ifndef MOVE_ABOVE
+    #define MOVE_ABOVE                      999999
+#endif
+#ifndef MOVE_BELOW
+    #define MOVE_BELOW                    -999999
+#endif
+#ifndef MOVE_LEFT
+    #define MOVE_LEFT                          666666
+#endif
+#ifndef MOVE_RIGHT
+    #define MOVE_RIGHT                      -666666
+#endif
+#ifndef QUIT
+    #define QUIT                                        115201
+#endif
+#ifndef GAME_2048_RESTART
+    #define GAME_2048_RESTART    123210
+#endif
+#ifndef GAME_2048_REVOKE
+    #define GAME_2048_REVOKE      6543210
+#endif
 
 int get_direction_2048(void);
 int imshow_2048(list_2048_t game);
-
-
 
 #endif

@@ -6,18 +6,18 @@ int game_2048(void)
     node_t list_node_temp = NULL;
     list_2048_t list_2048_temp = NULL;
 
-//创建一个链表用于保存游戏进度，用于撤销
+    //创建一个链表用于保存游戏进度，用于撤销
     node_t game_log = NULL;
     list_create(&game_log);
 
-//创建新游戏game结构体
+    //创建新游戏game结构体
     list_2048_t game = NULL;
     list_2048_create(&game);
     
-//将硬盘的数据读入到链表game_log中
-//且链表最后一个node的数据域读取到game中
+    //将硬盘的数据读入到链表game_log中
+    //且链表最后一个node的数据域读取到game中
     ret = list_2048_load(game_log, game);
-//判断硬盘有没有可以加载的游戏。
+    //判断硬盘有没有可以加载的游戏。
     if(ret == -2)
     {
         //如果没有，则开始新游戏，开局随机生成两个2
@@ -28,11 +28,11 @@ int game_2048(void)
         list_2048_save(game_log);
     }
 
-//2.显示开局棋盘
+    //2.显示开局棋盘
     list_2048_travel(game);
     imshow_2048(game);
 
-//3.响应上下左右交互
+    //3.响应上下左右交互
     while(1)
     {
         //获取触摸屏状态，判断上下左右还是点击撤销、重来、退出

@@ -8,11 +8,16 @@
 #include <string.h>
 #include <linux/fb.h>
 #include <sys/ioctl.h>
+#include <linux/input.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include <sys/mman.h>
 #include "bit_bmp.h"
+#include "input_sc.h"
 
-int show_bmp(char *path, int x, int y);
 int clear_sc(void);
+int show_bmp(char *path, int x, int y);
 int show_bmp_over(char *path, int x, int y);
 
 #endif

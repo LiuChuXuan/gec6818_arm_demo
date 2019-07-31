@@ -1,5 +1,6 @@
 #include "list_2048.h"
 
+//将item插入到二维数组game->item[y][x]中
 int list_2048_set(list_2048_t game, int x, int y, elen_2048_t item)
 {
     if(game != NULL)
@@ -26,6 +27,7 @@ int list_2048_set(list_2048_t game, int x, int y, elen_2048_t item)
     return 0; 
 }
 
+//随机将game其中一个为零的设置成2
 int list_2048_randcreate(list_2048_t game)
 {
     if(game == NULL)
@@ -69,6 +71,7 @@ list_2048_t list_2048_init(list_2048_t game)
     return game;
 }
 
+//创建game结构体
 list_2048_t list_2048_create(list_2048_t *new_list)
 {
     *new_list = (list_2048_t)malloc(sizeof(list_2048));
@@ -76,6 +79,7 @@ list_2048_t list_2048_create(list_2048_t *new_list)
     return *new_list;
 }
 
+//遍历game结构体，输出到终端
 int list_2048_travel(list_2048_t game)
 {
     if(game != NULL)
@@ -96,6 +100,7 @@ int list_2048_travel(list_2048_t game)
     return 0;
 }
 
+//销毁game结构体，释放资源
 list_2048_t list_2048_destroy(list_2048_t *game)
 {
     free(*game);

@@ -7,7 +7,17 @@
 #include "list.h"
 #include "show_bmp.h"
 
-int picture_viewer(char *path);
+#ifndef MOVE_LEFT
+    #define MOVE_LEFT        666666
+#endif
+#ifndef MOVE_RIGHT
+    #define MOVE_RIGHT     -666666
+#endif
+#ifndef QUIT
+    #define QUIT          115201
+#endif
 
+int picture_viewer(char *path);
+int ch_img(void);
 
 #endif
