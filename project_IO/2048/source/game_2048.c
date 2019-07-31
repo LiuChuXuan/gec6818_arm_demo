@@ -10,21 +10,23 @@ int game_2048(void)
     node_t game_log = NULL;
     list_create(&game_log);
 
-//1.创建新游戏game结构体
+//创建新游戏game结构体
     list_2048_t game = NULL;
     list_2048_create(&game);
     
+//将硬盘的数据读入到链表game_log中
+//且链表最后一个node的数据域读取到game中
+    ret = list_2048_load(game_log, game);
 //判断硬盘有没有可以加载的游戏。
-    ret = list_2048_load(game);
-    if(ret == -1)
+    if(ret == -2)
     {
         //如果没有，则开始新游戏，开局随机生成两个2
         list_2048_randcreate(game);
         list_2048_randcreate(game);
+        //将当前游戏操作步骤，即game结构体，插入到game_log这个链表中
+        list_2048_record(game_log, game);
+        list_2048_save(game_log);
     }
-
-    //将当前游戏操作步骤，即game结构体，插入到game_log这个链表中
-    list_2048_record(game_log, game);
 
 //2.显示开局棋盘
     list_2048_travel(game);
@@ -70,16 +72,21 @@ int game_2048(void)
                 break;
             //撤销到上一步
             case GAME_2048_REVOKE:
+                //判断game_log中有没有可以删的节点
                 ret = list_length(game_log);
                 if(ret <= 1)
                 {
-                    continue;
+                    continue;//如果剩下一个就删不了
                 }
-
+                //如果有剩下的，就可以删掉最后一个节点
                 list_delete_node(game_log, -1);
+                //删掉了，然后呢，获取最后一个节点
                 list_node_temp = list_get_node(game_log, -1);
+                //然后获取该节点里面数据域的那个结构体
                 list_2048_temp = (list_2048_t)(list_node_temp->item);
+                //然后把这个结构体写入到game结构体里面
                 memcpy(game, list_2048_temp, sizeof(list_2048));
+                list_2048_save(game_log);
                 list_2048_travel(game);
                 imshow_2048(game);
                 continue;
@@ -98,12 +105,10 @@ int game_2048(void)
             sleep(2);
             break;
         }
-
         //将当前游戏操作步骤，即game结构体，插入到game_log这个链表中
         list_2048_record(game_log, game);
-
         //将游戏保存到硬盘，即把内存中的数据(game结构体)写入硬盘
-        ret = list_2048_save(game);
+        ret = list_2048_save(game_log);
         if(ret == -1)
         {
             break;            

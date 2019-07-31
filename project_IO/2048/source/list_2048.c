@@ -319,46 +319,74 @@ int list_2048_move_below(list_2048_t game)
     return score;
 }
 
-int list_2048_save(list_2048_t game)
+//将内存中的游戏信息(链表game_log)保存到硬盘
+int list_2048_save(node_t game_log)
 {
-    FILE *fp = fopen("./save_2048","w");
+    if(game_log == NULL)
+    {
+        perror("2048 save game_log == NULL");
+        return -1;
+    }
+    //准备将游戏保存到./save_2048这个文件里面
+    FILE *fp = fopen("./save_2048","w+");
     if(fp == NULL)
     {
         perror("fopen error");
         return -1;
     }
 
-    int ret = fwrite(game, sizeof(list_2048), 1, fp);
-    if(ret != 1)
+    int ret = 0;
+    node_t temp = game_log->next;
+
+    while(temp != game_log)
     {
-        perror("save game error");
-        return -1;
+        ret = fwrite(temp->item, sizeof(list_2048), 1, fp);
+        if(ret != 1)
+        {
+            perror("game_log save error");
+            return -1;
+        }
+        temp = temp->next;
     }
 
     fclose(fp);
     return 0;
 }
 
-int list_2048_load(list_2048_t game)
+//将硬盘的游戏信息加载到(结构体game和链表game_log)
+int list_2048_load(node_t game_log, list_2048_t game)
 {
+    if(game_log == NULL)
+    {
+        perror("2048 save game_log == NULL");
+        return -1;
+    }
+    if(game == NULL)
+    {
+        perror("2048 save game == NULL");
+        return -1;
+    }
+    //打开游戏保存的那个文件
     FILE *fp = fopen("./save_2048","r");
     if(fp == NULL)
     {
         perror("fopen error");
-        return -1;
+        return -2;
     }
 
-    int ret = fread(game, sizeof(list_2048), 1, fp);
-    if(ret != 1)
+    //链表初始化
+    list_init(game_log);
+
+    while(fread(game, sizeof(list_2048), 1, fp))
     {
-        perror("load game error");
-        return -1;
+        list_2048_record(game_log, game);
     }
 
     fclose(fp);
     return 0;
 }
 
+//将结构体game插入到链表game_log
 int list_2048_record(node_t game_log, list_2048_t game)
 {
     if(game == NULL)
