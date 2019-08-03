@@ -1,6 +1,6 @@
 #include "game_2048.h"
 
-int game_2048(void)
+int game_2048(sc_info_t screen)
 {
     int direction = 0, ret = 0;
     node_t list_node_temp = NULL;
@@ -30,7 +30,7 @@ int game_2048(void)
 
     //2.显示开局棋盘
     list_2048_travel(game);
-    imshow_2048(game);
+    imshow_2048(screen, game);
 
     //3.响应上下左右交互
     while(1)
@@ -88,7 +88,7 @@ int game_2048(void)
                 memcpy(game, list_2048_temp, sizeof(list_2048));
                 list_2048_save(game_log);
                 list_2048_travel(game);
-                imshow_2048(game);
+                imshow_2048(screen, game);
                 continue;
 
             default:
@@ -101,7 +101,7 @@ int game_2048(void)
         if(ret == -2)
         {
             perror("game over");
-            show_bmp("./ui_img/gameover_2048.bmp", 0, 0);
+            show_bmp(screen, "./ui_img/gameover_2048.bmp", 0, 0);
             sleep(2);
             break;
         }
@@ -115,7 +115,7 @@ int game_2048(void)
         }
 
         list_2048_travel(game); //游戏显示到终端
-        imshow_2048(game);      //游戏显示到液晶屏
+        imshow_2048(screen, game);      //游戏显示到液晶屏
     }
 
     list_destroy(&game_log);

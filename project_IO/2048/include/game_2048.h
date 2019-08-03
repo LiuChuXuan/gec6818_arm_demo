@@ -4,7 +4,7 @@
 #include "list_2048.h"
 #include "imshow_2048.h"
 
-int game_2048(void);
+int game_2048(sc_info_t screen);
 
 
 #endif

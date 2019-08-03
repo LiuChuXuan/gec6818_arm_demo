@@ -1,21 +1,15 @@
 ALL_C = \
 ./main.c \
 \
-./picture_viewer/source/scan_picture.c \
-./picture_viewer/source/picture_viewer.c \
-\
-./2048/source/game_2048.c \
-./2048/source/list_2048.c \
-./2048/source/imshow_2048.c \
-\
-./list/list.c \
+./2048/source/*.c \
 \
 ./led_beep/led_beep.c \
 \
-./screen_io/source/input_sc.c \
-./screen_io/source/print_sc.c \
-./screen_io/source/show_bmp.c 
-
+./list/list.c \
+\
+./picture_viewer/source/*.c \
+\
+./screen_io/source/*.c 
 
 2048_h = ./2048/include 
 picture_h = ./picture_viewer/include 

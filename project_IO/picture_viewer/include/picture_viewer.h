@@ -1,7 +1,6 @@
 #ifndef _PICTURE_VIEWER_H_
 #define _PICTURE_VIEWER_H_
 
-#include <stdio.h>
 #include "input_sc.h"
 #include "scan_picture.h"
 #include "list.h"
@@ -17,7 +16,7 @@
     #define QUIT          115201
 #endif
 
-int picture_viewer(char *path);
+int picture_viewer(sc_info_t screen, char *path);
 int ch_img(void);
 
 #endif

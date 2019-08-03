@@ -28,6 +28,6 @@
 #endif
 
 int get_direction_2048(void);
-int imshow_2048(list_2048_t game);
+int imshow_2048(sc_info_t screen, list_2048_t game);
 
 #endif

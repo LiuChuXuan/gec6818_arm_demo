@@ -5,6 +5,6 @@
 #include "game_2048.h"
 #include "print_sc.h"
 
-int led_beep(void);
+int led_beep(sc_info_t screen);
 
 #endif

@@ -1,39 +1,14 @@
 #include "show_bmp.h"
 
 //把屏幕清成黑屏
-int clear_sc(void)
+int clear_sc(sc_info_t screen)
 {
-    int fd = open("/dev/fb0",O_RDWR);
-    if(fd == -1)
-    {
-        perror("open");
-        return -1;
-    }
-
-    struct fb_var_screeninfo var;
-    ioctl(fd,FBIOGET_VSCREENINFO,&var);
-
-    printf("x = %d, y = %d, pixel = %d\n",var.xres,var.yres,var.bits_per_pixel);
-
-    int *memp = (int *)mmap(NULL,var.xres*var.yres*var.bits_per_pixel/8, 
-                                PROT_WRITE|PROT_READ,MAP_SHARED,fd,0);
-
-    if(memp == MAP_FAILED)
-    {
-        perror("mmap");
-        return -2;
-    }
-
-    memset(memp, 0, var.xres*var.yres*var.bits_per_pixel/8);
-
-    munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
-
-    close(fd);
+    memset(screen->fb, 0, screen->size);
     return 0;
 }
 
 //输入图片的路径、左上角位置(x，y)，在LCD相应位置显示图片。
-int show_bmp(char *path, int x, int y)
+int show_bmp(sc_info_t screen, char *path, int x, int y)
 {
     int ret = 0;
     struct bitmap_header bmp_header;
@@ -82,26 +57,6 @@ int show_bmp(char *path, int x, int y)
     //读取bmp图片到bmp_buf
 	fread(bmp_buf, sizeof(bmp_buf), 1, fp_bmp);
     
-    //打开lcd设备文件
-    int fd_lcd = open("/dev/fb0",O_RDWR);
-    if(fd_lcd == -1)
-    {
-        perror("open");
-        return -1;
-    }
-    struct fb_var_screeninfo var;//用于存放屏幕设备的宽度、高度信息
-    ioctl(fd_lcd,FBIOGET_VSCREENINFO,&var);//获取这个硬件信息
-    //printf("lcd_x = %d, lcd_y = %d, pixel = %d\n", var.xres, var.yres, var.bits_per_pixel);
-
-    //内存映射
-    unsigned int *memp = (unsigned int *)mmap(NULL,var.xres*var.yres*var.bits_per_pixel/8, 
-                                PROT_WRITE|PROT_READ,MAP_SHARED,fd_lcd,0);
-    if(memp == MAP_FAILED)
-    {
-        perror("mmap");
-        return -2;
-    }
-
     //存放准备写入到lcd上的数据
     unsigned int lcd_buf[ bmp_info.width * bmp_info.height];
     memset(lcd_buf, 0, sizeof(lcd_buf));
@@ -120,27 +75,25 @@ int show_bmp(char *path, int x, int y)
 		}
 	}
 
-    int h = (bmp_info.height + y) > var.yres ? (var.yres - y) : bmp_info.height;
-    int w = (bmp_info.width + x) > var.xres ? (var.xres - x) : bmp_info.width;
+    int h = (bmp_info.height + y) > screen->yres ? (screen->yres - y) : bmp_info.height;
+    int w = (bmp_info.width + x) > screen->xres ? (screen->xres - x) : bmp_info.width;
     //将图片写入到lcd屏幕文件（偏移x，y）
     for(h_count = 0; h_count < h; h_count++)
     {
         for(w_count = 0; w_count < w; w_count++)
         {
-            *(memp + (w_count+x) + (h_count+y)*var.xres) = 
+            *(screen->fb + (w_count+x) + (h_count+y)*screen->xres) = 
                                                                     lcd_buf[w_count + (h - h_count - 1) * w];
         }
     }
 
     //释放相关资源
-    munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
     fclose(fp_bmp);
-    close(fd_lcd);
     return 0;
 }
 
 //显示图片，图片没有的地方用黑色覆盖
-int show_bmp_over(char *path, int x, int y)
+int show_bmp_over(sc_info_t screen, char *path, int x, int y)
 {
     int ret = 0;
     struct bitmap_header bmp_header;
@@ -189,27 +142,7 @@ int show_bmp_over(char *path, int x, int y)
     //读取bmp图片到bmp_buf
 	fread(bmp_buf, sizeof(bmp_buf), 1, fp_bmp);
     
-    //打开lcd设备文件
-    int fd_lcd = open("/dev/fb0",O_RDWR);
-    if(fd_lcd == -1)
-    {
-        perror("open");
-        return -1;
-    }
-    struct fb_var_screeninfo var;//用于存放屏幕设备的宽度、高度信息
-    ioctl(fd_lcd,FBIOGET_VSCREENINFO,&var);//获取这个硬件信息
-    printf("lcd_x = %d, lcd_y = %d, pixel = %d\n", var.xres, var.yres, var.bits_per_pixel);
-
-    //内存映射
-    unsigned int *memp = (unsigned int *)mmap(NULL,var.xres*var.yres*var.bits_per_pixel/8, 
-                                PROT_WRITE|PROT_READ,MAP_SHARED,fd_lcd,0);
-    if(memp == MAP_FAILED)
-    {
-        perror("mmap");
-        return -2;
-    }
-
-    memset(memp, 0, var.xres*var.yres*var.bits_per_pixel/8);
+    memset(screen->fb, 0, screen->size);
 
     //存放准备写入到lcd上的数据
     unsigned int lcd_buf[ bmp_info.width * bmp_info.height];
@@ -228,22 +161,20 @@ int show_bmp_over(char *path, int x, int y)
 		}
 	}
 
-    int h = (bmp_info.height + y) > var.yres ? (var.yres - y) : bmp_info.height;
-    int w = (bmp_info.width + x) > var.xres ? (var.xres - x) : bmp_info.width;
+    int h = (bmp_info.height + y) > screen->yres ? (screen->yres - y) : bmp_info.height;
+    int w = (bmp_info.width + x) > screen->xres ? (screen->xres - x) : bmp_info.width;
     //将图片写入到lcd屏幕文件（偏移x，y）
     for(h_count = 0; h_count < h; h_count++)
     {
         for(w_count = 0; w_count < w; w_count++)
         {
-            *(memp + (w_count+x) + (h_count+y)*var.xres) = 
-                                                                    lcd_buf[w_count + (h - h_count - 1) * w];
+            *(screen->fb + (w_count+x) + (h_count+y)*screen->xres) = \
+                        lcd_buf[w_count + (h - h_count - 1) * w];
         }
     }
 
     //释放相关资源
-    munmap(memp,var.xres*var.yres*var.bits_per_pixel/8);
     fclose(fp_bmp);
-    close(fd_lcd);
     return 0;
 }
 /* 

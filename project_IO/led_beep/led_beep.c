@@ -13,7 +13,7 @@
 #define LED3 _IO(TEST_MAGIC,2)
 #define LED4 _IO(TEST_MAGIC,3)
 
-int led_beep(void)
+int led_beep(sc_info_t screen)
 {
     int status_beep = 1;
     int status_led[4];
@@ -44,11 +44,11 @@ int led_beep(void)
     ioctl(fd_led, LED3, status_led[2]);
     ioctl(fd_led, LED4, status_led[3]);
 
-    show_bmp("./ui_img/menu_led_beep.bmp", 0, 0);    
-    show_bmp("./ui_img/led_close.bmp", 50, 90);
-    show_bmp("./ui_img/led_close.bmp", 250, 90);
-    show_bmp("./ui_img/led_close.bmp", 450, 90);
-    show_bmp("./ui_img/led_close.bmp", 650, 90);
+    show_bmp(screen, "./ui_img/menu_led_beep.bmp", 0, 0);    
+    show_bmp(screen, "./ui_img/led_close.bmp", 50, 90);
+    show_bmp(screen, "./ui_img/led_close.bmp", 250, 90);
+    show_bmp(screen, "./ui_img/led_close.bmp", 450, 90);
+    show_bmp(screen, "./ui_img/led_close.bmp", 650, 90);
 
     while(1)
     {
@@ -59,11 +59,11 @@ int led_beep(void)
             ioctl(fd_led, LED1, status_led[0]);
             if(status_led[0])
             {
-                show_bmp("./ui_img/led_close.bmp", 50, 90);
+                show_bmp(screen, "./ui_img/led_close.bmp", 50, 90);
             }
             else
             {
-                show_bmp("./ui_img/led_open.bmp", 50, 90);
+                show_bmp(screen, "./ui_img/led_open.bmp", 50, 90);
             }
         }
         else if(y < 280 && x > 200 && x < 400)
@@ -72,11 +72,11 @@ int led_beep(void)
             ioctl(fd_led, LED2, status_led[1]);
             if(status_led[1])
             {
-                show_bmp("./ui_img/led_close.bmp", 250, 90);
+                show_bmp(screen, "./ui_img/led_close.bmp", 250, 90);
             }
             else
             {
-                show_bmp("./ui_img/led_open.bmp", 250, 90);
+                show_bmp(screen, "./ui_img/led_open.bmp", 250, 90);
             }
         }
         else if(y < 280 && x > 400 && x < 600)
@@ -85,11 +85,11 @@ int led_beep(void)
             ioctl(fd_led, LED3, status_led[2]);
             if(status_led[2])
             {
-                show_bmp("./ui_img/led_close.bmp", 450, 90);
+                show_bmp(screen, "./ui_img/led_close.bmp", 450, 90);
             }
             else
             {
-                show_bmp("./ui_img/led_open.bmp", 450, 90);
+                show_bmp(screen, "./ui_img/led_open.bmp", 450, 90);
             }
         }
         else if(y < 280 && x > 600 && x < 800)
@@ -98,11 +98,11 @@ int led_beep(void)
             ioctl(fd_led, LED4, status_led[3]);
             if(status_led[3])
             {
-                show_bmp("./ui_img/led_close.bmp", 650, 90); 
+                show_bmp(screen, "./ui_img/led_close.bmp", 650, 90); 
             }
             else
             {
-                show_bmp("./ui_img/led_open.bmp", 650, 90); 
+                show_bmp(screen, "./ui_img/led_open.bmp", 650, 90); 
             }
         }
         else if(y > 280 && x < 400)

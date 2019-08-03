@@ -1,7 +1,7 @@
 #include "picture_viewer.h"
 
 //相册的主程序
-int picture_viewer(char *path)
+int picture_viewer(sc_info_t screen, char *path)
 {
     if(path == NULL)
     {
@@ -19,7 +19,7 @@ int picture_viewer(char *path)
     printf("picture amount: %d\n",picture_num);
 
     int count = 1;
-	show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
+	show_bmp_over(screen, (char *)(list_get_node(img_list, count)->item), 0, 0);
     printf("Display the first picture\n");
 
     int ret = 0;
@@ -40,7 +40,7 @@ int picture_viewer(char *path)
             {
                 count = 1;
             }
-			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
+			show_bmp_over(screen, (char *)(list_get_node(img_list, count)->item), 0, 0);
             printf("Next:(no. %d)\n\n",count);
         }
         //向右滑动或者在屏幕左侧点击的时候切换到上一张图片
@@ -51,7 +51,7 @@ int picture_viewer(char *path)
             {
                 count = picture_num;
             }
-			show_bmp_over((char *)(list_get_node(img_list, count)->item), 0, 0);
+			show_bmp_over(screen, (char *)(list_get_node(img_list, count)->item), 0, 0);
             printf("Previous:(no. %d)\n\n",count);
 		}
     }
