@@ -173,7 +173,7 @@ int imshow_2048(sc_info_t screen, list_2048_t game)
                     break;
                 default:
                     perror("score error");
-                    exit(-1);
+                    return(-1);
             }
             if(game->score/(y*10) == 0)
             {
@@ -218,7 +218,7 @@ int imshow_2048(sc_info_t screen, list_2048_t game)
                 break;
             default:
                 perror("score error");
-                exit(-1);
+                return(-1);
         }
     }
     return 0;

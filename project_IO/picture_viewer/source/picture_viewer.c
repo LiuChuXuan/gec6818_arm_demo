@@ -13,7 +13,12 @@ int picture_viewer(sc_info_t screen, char *path)
     list_create(&img_list);
 
     //递归地扫描path路径下的所有文件夹里的所有图片
-    scan_picture(path, img_list);
+    int ret = scan_picture(path, img_list);
+	if(ret != 0)
+	{
+		list_destroy(&img_list);
+		return -1;
+	}
 
     int picture_num = list_length(img_list);
     printf("picture amount: %d\n",picture_num);
@@ -22,7 +27,6 @@ int picture_viewer(sc_info_t screen, char *path)
 	show_bmp_over(screen, (char *)(list_get_node(img_list, count)->item), 0, 0);
     printf("Display the first picture\n");
 
-    int ret = 0;
     while(1)
     {
         ret = ch_img();
