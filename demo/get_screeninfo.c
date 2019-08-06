@@ -31,7 +31,7 @@ void show_fix_screeninfo(struct fb_fix_screeninfo *p)
 	printf("=== FIX SCREEN INFO === \n");
 
 	printf("\tid: %s\n", p->id);
-	printf("\tsmem_start: %lx\n", p->smem_start);
+	printf("\tsmem_start: %#x\n", p->smem_start);
 	printf("\tsmem_len: %u bytes\n", p->smem_len);
 
 	printf("\ttype:");
@@ -71,7 +71,7 @@ void show_fix_screeninfo(struct fb_fix_screeninfo *p)
 	printf("\tywrapstep: %u\n", p->ywrapstep);
 	printf("\tline_len: %u bytes\n", p->line_length);
 
-	printf("\tmmio_start: %lx\n", p->mmio_start);
+	printf("\tmmio_start: %#x\n", p->mmio_start);
 	printf("\tmmio_len: %u bytes\n", p->mmio_len);
 
 	printf("\taccel: ");

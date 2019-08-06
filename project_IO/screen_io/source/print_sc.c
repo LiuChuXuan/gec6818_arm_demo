@@ -74,10 +74,16 @@ int draw_circle(sc_info_t screen, unsigned int colour, int x_center, int y_cente
     return 0;
 }
 
-/*
-//油漆桶功能, 将一个封闭的区域填充成同一种颜色, 最后一个参数为误差忽略
-int fill_colour(unsigned int colour, int x, int y, int *buff, int ignore, int xres, int yres)
+
+/* //油漆桶功能, 将一个封闭的区域填充成同一种颜色, 最后一个参数为误差忽略
+int fill_colour(sc_info_t screen, int *buff, \
+unsigned int colour, int x, int y,  int ignore)
 {
+    unsigned int temp = 0;
+    if(screen == NULL)
+    {
+        perror("fill_colour screen == NULL");
+    }
     if(buff == NULL)
     {
         perror("fill colour == NULL");
@@ -85,11 +91,17 @@ int fill_colour(unsigned int colour, int x, int y, int *buff, int ignore, int xr
     }
     while(1)
     {
-
+        temp = *(screen->fb + x + y * screen->xres);
+        temp = temp - colour;
+        temp = temp >= 0 ? temp : -temp;
+        if(temp > ignore)
+        {
+            
+        }
     }
+} */
 
-}
-*/
+
 //输入颜色(ARGB各1byte), 通过手指滑动屏幕画画
 int draw(sc_info_t screen, unsigned int colour)
 {
