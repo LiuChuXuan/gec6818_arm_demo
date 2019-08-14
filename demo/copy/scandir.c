@@ -40,11 +40,6 @@ int scan_dir(char *src, const char *dest)
 			perror("pathcat failed");
 		}
 
-		printf("dirname:%s\n",dirname);
-		printf("dest:%s\n",dest);
-
-		printf("path[1]:%s\n",path[1]);
-
 		//add_task(pool, do_task, (void *)path);
         do_task((void *)path);
 

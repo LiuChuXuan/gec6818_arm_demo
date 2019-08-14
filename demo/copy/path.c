@@ -3,24 +3,15 @@
 
 int basename(char **name,char *path)
 {
-	/* 012345 */
-	/* main.c */
-	/* 123456 */
-	const int size = strlen(path);//=6
-	int count = size;		//=6
-	int distance = 0;		//=0
+	const int size = strlen(path);
+	int count = size - 2;
+	int distance = 0;
 
-	//			n,i,a != '/'           4,3-2>0 
-	while((*(path + count) != '/') && (count - 2 > 0))
+	while(count >= 0)
 	{
-		count -= 1;
-	}
-
-	while(count > 0)
-	{
-		if(*(path + count - 2) == '/')
+		if(*(path + count) == '/')
 		{
-			*name = (char *)calloc(1, size - count - 2);
+			*name = (char *)calloc(1, size - count);
 			if(*name == NULL)
 			{
 				perror("basename calloc failed");
@@ -30,7 +21,7 @@ int basename(char **name,char *path)
 		}
 		count -= 1;
 	}
-	if(count == 0)
+	if(count == -1)
 	{
 		*name = (char *)calloc(1, size + 1);
 		if(*name == NULL)
@@ -42,11 +33,10 @@ int basename(char **name,char *path)
 		return 0;
 	}
 
-	int i = 0;
-	while(count - 2 < size)
+	while(count < size)
 	{
 		count += 1;
-		*(*name + distance) = *(path + count - 2);
+		*(*name + distance) = *(path + count);
 		distance += 1;
 	}
 	return 0;
