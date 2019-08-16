@@ -27,8 +27,6 @@ void *do_task(void *arg)
 
 	while(1)
 	{
-		/* 01234567890123456789012345678901234567890123456789012345 */
-		/* ./machine_learning/.git/hooks/fsmonitor-watchman.sample */
 		while(1)
 		{
 			if(*(dest + index) == '/')
@@ -41,8 +39,6 @@ void *do_task(void *arg)
 			}
 			index += 1;
 		}
-
-
 
 		if(*(dest + index) == '\0')
 		{

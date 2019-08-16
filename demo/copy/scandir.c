@@ -8,12 +8,14 @@ int scan_dir(char *src, const char *dest)
 	char *path[2] = {NULL, NULL};
     
     /**不知道为什么不可以这样     
-        char **path = calloc(2,sizeof(char *));
+        char **path = (char **)malloc(2*sizeof(char *));
         if(path == NULL)
         {
             perror("calloc failed.");
             return -1;
         }
+		path[0] = NULL;
+		path[1] = NULL;
     */
 
 	//用于存放文件信息
@@ -102,7 +104,9 @@ int scan_dir(char *src, const char *dest)
 			scan_dir(path[0], path[1]);
 			free(path[0]);
 			free(path[1]);
-            //free(path);
+			/* 
+            	free(path);
+			*/
 		}
 	}
 	closedir(dp);

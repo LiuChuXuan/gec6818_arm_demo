@@ -27,8 +27,6 @@ void *do_task(void *arg)
 
 	while(1)
 	{
-		/* 01234567890123456789012345678901234567890123456789012345 */
-		/* ./machine_learning/.git/hooks/fsmonitor-watchman.sample */
 		while(1)
 		{
 			if(*(dest + index) == '/')
@@ -42,11 +40,8 @@ void *do_task(void *arg)
 			index += 1;
 		}
 
-
-
 		if(*(dest + index) == '\0')
 		{
-			printf("break index = %d\n",index);
 			break;
 		}
 
@@ -85,19 +80,21 @@ void *do_task(void *arg)
 			perror("fwrite failed!");
 		}
 	}
-	if(ret < 1)
+ 	if(ret < 1)
 	{
 		if(feof(fp_src))
 		{
-			printf("copy success \n");
+			printf("a file copy complete\n");
 		}
 	}
-
+ 
 	free(src);
 	free(dest);
-	//free(arg);
+	/* 
+		free(arg);
+	*/
 	fclose(fp_dest);
 	fclose(fp_src);
-	printf("free success\n");
+	printf("free complete\n");
 	return NULL;
 }
