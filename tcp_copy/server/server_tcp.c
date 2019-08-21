@@ -52,14 +52,13 @@ int main(int argc, const char **argv)
 	//定义ipv4地址结构体变量
 	struct sockaddr_in client_addr;
 	
-	int len;
+	int len=sizeof(struct sockaddr_in);
 	bzero(&client_addr, sizeof(client_addr));
 	
 	//4、阻塞等电话-->等待连接-->连接上后可以获得已连接的套接字--》
 	//每连接上一个新的客户端，就会产生一个新的套接字
 	int acc_fd = accept(soc_fd, 	 \
-	(struct sockaddr *)&client_addr, \
-	(socklen_t *)&len);
+	(struct sockaddr *)&client_addr, &len);
 
 	if(acc_fd == -1)
 	{

@@ -1,6 +1,6 @@
 ALL_C = \
 ./*.c \
-../path.c 
+../*.c 
 
 #CC = arm-linux-gcc
 #CC = gcc
