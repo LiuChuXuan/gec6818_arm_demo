@@ -64,16 +64,19 @@ int savedata(buf_t data, char *basepath)
 		if(ret != 0)
 		{
 			mkdir(temp, 0777);
+            printf("mkdir complete\n");
 		}
 
 		index += 1;
 	}
+    printf("data->path %s\n",data->path);
     FILE *fp = NULL;
     if(data->mode == 0)
     {
         fp = fopen(dest,"w");
         if(fp == NULL)
         {
+            printf("%s\n",dest);
             perror("open failed");
             return -1;
         }
@@ -83,6 +86,7 @@ int savedata(buf_t data, char *basepath)
         fp = fopen(dest,"a");
         if(fp == NULL)
         {
+            printf("%s\n",dest);
             perror("open failed");
             return -1;
         }
@@ -120,7 +124,6 @@ int server_recv(int acc_fd, buf_t data)
     int ret_rd = 0,   \
         index  = 0,   \
         size   = sizeof(buf);
-
     while(1)
     {
         index = 0;

@@ -87,6 +87,11 @@ int scan_dir(int soc_fd, buf_t data)
         memset(data->path, 0, 256);
         strcpy(data->path, temp);
 	}
+
+    printf("send over\n");
+    data->mode = 2;
+    client_send(soc_fd, data);
+
 	closedir(dp);
     free(data);
 	return 0;
