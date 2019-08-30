@@ -17,6 +17,12 @@ int client_send(int soc_fd,buf_t data)
         return -1;
     }
 
+    printf("----------\n");
+    printf("mode:%d\n",data->mode);
+    printf("data->path:%s\n",data->path);
+    printf("basepath:%s\n",data->basepath);
+    printf("----------\n");
+
     int ret_rd = 0,         \
         ret_wr = 0,         \
         size = sizeof(buf), \
@@ -24,7 +30,7 @@ int client_send(int soc_fd,buf_t data)
 
     while(1)
     {
-        memset(data, 0, sizeof(buf));
+        memset(data->buf, 0, 4096);
 
         ret_rd = fread(data->buf, 4096, 1, fp);
         if(ferror(fp))

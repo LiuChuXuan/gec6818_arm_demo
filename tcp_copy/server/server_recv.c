@@ -17,6 +17,7 @@ int pathcat(char *dest, const char *arg1, const char *arg2);
 //           0123456789012345678
 int savedata(buf_t data, char *basepath)
 {
+
     int ret = 0;
     int ret_wr = 0;
     int index = 0;
@@ -24,6 +25,7 @@ int savedata(buf_t data, char *basepath)
     int dest_len = strlen(basepath);
     int src_len = strlen(data->basepath);
 
+    //将基地址和地址合成到一个目标地址
     char dest[256];
     memset(dest, 0, 256);
 
@@ -69,7 +71,14 @@ int savedata(buf_t data, char *basepath)
 
 		index += 1;
 	}
-    printf("data->path %s\n",data->path);
+
+    printf("----------\n");
+    printf("dest path :%s",dest);
+    printf("mode:%d\n",data->mode);
+    printf("data->path:%s\n",data->path);
+    printf("basepath:%s\n",data->basepath);
+    printf("----------\n");
+
     FILE *fp = NULL;
     if(data->mode == 0)
     {
@@ -153,6 +162,7 @@ int server_recv(int acc_fd, buf_t data)
         }
         else if(data->mode == 2)
         {
+            printf("receive complete");
             break;
         }
         else

@@ -56,7 +56,7 @@ int main(int argc, const char **argv)
 	if(strlen("../../thread_pool_copy") < 256)
 	{
 		strcpy(data->path, "../../thread_pool_copy");
-		strcpy(data->basepath, "../../thread_pool_copy");
+		strcpy(data->basepath, "../../");
 	}
 	else
 	{
