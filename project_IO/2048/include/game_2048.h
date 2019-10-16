@@ -6,5 +6,4 @@
 
 int game_2048(sc_info_t screen);
 
-
 #endif

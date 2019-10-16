@@ -10,10 +10,10 @@
 int main(void)
 {
     //检测有名管道文件是否存在
-    if(access("./myfifo", F_OK))
+    if (access("./myfifo", F_OK))
     {
         //创建有名管道
-        if(mkfifo("./myfifo",0777))
+        if (mkfifo("./myfifo", 0777))
         {
             perror("mkfifo failed");
             return -1;
@@ -30,14 +30,14 @@ int main(void)
 
     //打开有名管道文件
     perror("111111111111111");
-    int fifo_fd = open("./myfifo",O_RDONLY);
+    int fifo_fd = open("./myfifo", O_RDONLY);
     perror("222222222222222");
-    if(fifo_fd == -1)
+    if (fifo_fd == -1)
     {
         perror("open myfifp failed");
         return -1;
     }
-    else if(fifo_fd > 0)
+    else if (fifo_fd > 0)
     {
         printf("open myfifo success\n");
     }
@@ -47,7 +47,7 @@ int main(void)
 
     //读取数据
     read(fifo_fd, buf, 20);
-    printf("%s\n",buf);
+    printf("%s\n", buf);
 
     //关闭文件
     close(fifo_fd);

@@ -7,15 +7,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct t_buf{
-    char *buf;            //内存地址
-    int size;             //内存大小
-    pthread_mutex_t mutex;//互斥锁变量
-}t_buf, *t_buf_t;
+typedef struct t_buf
+{
+    char *buf;             //内存地址
+    int size;              //内存大小
+    pthread_mutex_t mutex; //互斥锁变量
+} t_buf, *t_buf_t;
 
-
-void *func_t1(void* buffer);
-void *func_t2(void* buffer);
+void *func_t1(void *buffer);
+void *func_t2(void *buffer);
 
 int main(void)
 {
@@ -39,25 +39,25 @@ int main(void)
 
     pthread_exit(0);
 }
-void *func_t1(void* buffer)
+void *func_t1(void *buffer)
 {
     //上锁
     pthread_mutex_lock(&(((t_buf_t)buffer)->mutex));
 
     //接收键盘数据
     fgets(((t_buf_t)buffer)->buf, 20, stdin);
-    
+
     //解锁
     pthread_mutex_unlock(&(((t_buf_t)buffer)->mutex));
     return NULL;
 }
-void *func_t2(void* buffer)
+void *func_t2(void *buffer)
 {
     //上锁
     pthread_mutex_lock(&(((t_buf_t)buffer)->mutex));
 
     //输出内存中的数据到屏幕上
-    printf("hello ! %s\n",(char *)(((t_buf_t)buffer)->buf));
+    printf("hello ! %s\n", (char *)(((t_buf_t)buffer)->buf));
 
     //释放堆空间内存
     free(((t_buf_t)buffer)->buf);

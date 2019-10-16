@@ -1,15 +1,15 @@
 /*---------------------------------------
-*¹¦ÄÜÃèÊö:  ·äÃùÆ÷Çý¶¯ 
-*´´½¨Õß£º   ÔÁÇ¶¼¼Êõ²¿
-*´´½¨Ê±¼ä£º 2015,01,01
+*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+*ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½   ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º 2015,01,01
 ---------------------------------------
-*ÐÞ¸ÄÈÕÖ¾£º
-*ÐÞ¸ÄÄÚÈÝ£º
-*ÐÞ¸ÄÈË£º
-*ÐÞ¸ÄÊ±¼ä£º
+*ï¿½Þ¸ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+*ï¿½Þ¸ï¿½ï¿½Ë£ï¿½
+*ï¿½Þ¸ï¿½Ê±ï¿½ä£º
 ----------------------------------------*/
 /*************************************************
-*Í·ÎÄ¼þ
+*Í·ï¿½Ä¼ï¿½
 *************************************************/
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -24,52 +24,53 @@
 #include <linux/gpio.h>
 #include <cfg_type.h>
 
-#define DEVICE_NAME     "beep"                    //Éè±¸Ãû×Ö
-#define  BUZZER_GPIO    (PAD_GPIO_C + 14)       //¹Ü½ÅºÅ
-
+#define DEVICE_NAME "beep"			  //ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
+#define BUZZER_GPIO (PAD_GPIO_C + 14) //ï¿½Ü½Åºï¿½
 
 /*************************************************
-*¿ØÖÆº¯Êý
-*cmd  ÉèÖÃ·äÃùÆ÷µÄ×´Ì¬ 0 ---on   1----off
-*args ÉèÖÃ·äÃùÆ÷µÄ¹Ü½Ì 1
+*ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½
+*cmd  ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ 0 ---on   1----off
+*args ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹Ü½ï¿½ 1
 *************************************************/
 //static long test_ioctl(struct inode *inode, struct file *file, unsigned int  cmd, unsigned long args)
 
-static long test_ioctl(struct file *file, unsigned int  cmd, unsigned long args)
+static long test_ioctl(struct file *file, unsigned int cmd, unsigned long args)
 {
 
-	if(args!=1) {
+	if (args != 1)
+	{
 		printk("the args is out of range 1 \n");
 		return -EINVAL;
 	}
 
-	switch(cmd){
-		case 1:
-			gpio_set_value(BUZZER_GPIO, 0);           //offÉèÖÃ¹Ü½ÌµÄÖµ0
-			printk("cmd = 0 , args=%ld\n", args);
-			break;
-		case 0:
-			gpio_set_value(BUZZER_GPIO, 1) ;          //onÉèÖÃ¹Ü½ÌµÄÖµ1
-			printk("cmd = 1 , args=%ld\n", args);
-			break;
-		default:
-			printk("the cmd is out of range(0,1) \n"); 
-			return -EINVAL;
-			break;
+	switch (cmd)
+	{
+	case 1:
+		gpio_set_value(BUZZER_GPIO, 0); //offï¿½ï¿½ï¿½Ã¹Ü½Ìµï¿½Öµ0
+		printk("cmd = 0 , args=%ld\n", args);
+		break;
+	case 0:
+		gpio_set_value(BUZZER_GPIO, 1); //onï¿½ï¿½ï¿½Ã¹Ü½Ìµï¿½Öµ1
+		printk("cmd = 1 , args=%ld\n", args);
+		break;
+	default:
+		printk("the cmd is out of range(0,1) \n");
+		return -EINVAL;
+		break;
 	}
 	return 0;
 }
 
 /*************************************************
-*ÎÄ¼þ²Ù×÷¼¯
+*ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *************************************************/
 static const struct file_operations chrdev_fops = {
-	.owner	= THIS_MODULE,
+	.owner = THIS_MODULE,
 	.unlocked_ioctl = test_ioctl,
 };
 
 /*************************************************
-*ÔÓÏîÉè±¸
+*ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
 *************************************************/
 static struct miscdevice buz_misc = {
 	.minor = MISC_DYNAMIC_MINOR,
@@ -78,53 +79,51 @@ static struct miscdevice buz_misc = {
 };
 
 /********************************************************************
-*Çý¶¯µÄ³õÊ¼»¯º¯Êý--->´ÓÄÚºËÖÐÉêÇë×ÊÔ´£¨ÄÚºË¡¢ÖÐ¶Ï¡¢Éè±¸ºÅ¡¢Ëø....£©
+*ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--->ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ÚºË¡ï¿½ï¿½Ð¶Ï¡ï¿½ï¿½è±¸ï¿½Å¡ï¿½ï¿½ï¿½....ï¿½ï¿½
 ********************************************************************/
-static int __init gec6818_buzzer_init(void) 
+static int __init gec6818_buzzer_init(void)
 {
 	int ret;
-	ret = gpio_request( BUZZER_GPIO , "BUZZER");         //gpio¹Ü½ÅÉêÇë
-	if(ret <0) {
-		printk("EXYNOS6818_GPX3(5) can not request \n" );
+	ret = gpio_request(BUZZER_GPIO, "BUZZER"); //gpioï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½
+	if (ret < 0)
+	{
+		printk("EXYNOS6818_GPX3(5) can not request \n");
 		goto fail_gpio_request;
 	}
 
-	gpio_direction_output( BUZZER_GPIO, 0);       //½«GPIOÉèÖÃÎªÊä³ö"0"
-	
-	ret = misc_register(&buz_misc);                      //×Ô¶¯Éú³ÉÉè±¸ÎÄ¼þ
-	if(ret <0){
+	gpio_direction_output(BUZZER_GPIO, 0); //ï¿½ï¿½GPIOï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½"0"
+
+	ret = misc_register(&buz_misc); //ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½Ä¼ï¿½
+	if (ret < 0)
+	{
 		printk("can not register buz_misc \n");
 		goto err_misc_register;
 	}
-	
-	return 0;                                           //Çý¶¯×¢²á³É¹¦£¬·µ»Ø0£»Çý¶¯×¢²áÊ§°Ü£¬·µ»ØÒ»¸ö¸ºÊý´íÎóÂë
 
-//³ö´í´¦Àí
-err_misc_register:	
+	return 0; //ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+err_misc_register:
 fail_gpio_request:
 
-	gpio_free(BUZZER_GPIO);		
-	return  ret;
-
+	gpio_free(BUZZER_GPIO);
+	return ret;
 }
 
 /*****************************************************************
-*Çý¶¯ÍË³öº¯Êý --->½«ÉêÇëµÄ×ÊÔ´»¹¸øÄÚºË
+*ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ --->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½
 *****************************************************************/
-static void __exit gec6818_buzzer_exit(void)            
+static void __exit gec6818_buzzer_exit(void)
 {
 	gpio_free(BUZZER_GPIO);
 	misc_deregister(&buz_misc);
 	printk("the driver is exiting!\n");
 }
 
-module_init(gec6818_buzzer_init);             //Çý¶¯µÄÈë¿Úº¯Êý»áµ÷ÓÃÒ»¸öÓÃ»§µÄ³õÊ¼»¯º¯Êý
-module_exit(gec6818_buzzer_exit);             //Çý¶¯µÄ³ö¿Úº¯Êý»áµ÷ÓÃÒ»¸öÓÃ»§µÄÍË³öº¯Êý
+module_init(gec6818_buzzer_init); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+module_exit(gec6818_buzzer_exit); //ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
 
-
-//Çý¶¯µÄÃèÊöÐÅÏ¢£º #modinfo  *.ko , Çý¶¯µÄÃèÊöÐÅÏ¢²¢²»ÊÇ±ØÐèµÄ¡£
-MODULE_AUTHOR("ZOROE@GEC");                   //Çý¶¯µÄ×÷Õß
-MODULE_DESCRIPTION("Buzzer of driver");       //Çý¶¯µÄÃèÊö
-MODULE_LICENSE("GPL");                        //×ñÑ­µÄÐ­Òé
-
-
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ #modinfo  *.ko , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½Ä¡ï¿½
+MODULE_AUTHOR("ZOROE@GEC");				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+MODULE_DESCRIPTION("Buzzer of driver"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+MODULE_LICENSE("GPL");					//ï¿½ï¿½Ñ­ï¿½ï¿½Ð­ï¿½ï¿½

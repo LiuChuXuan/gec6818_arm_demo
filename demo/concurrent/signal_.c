@@ -4,7 +4,7 @@
 
 void sighander(int sig)
 {
-    printf("\nsig = %d\n",sig);
+    printf("\nsig = %d\n", sig);
     kill(getpid(), 9);
     //kill(getpid(), 2);
 }
@@ -19,7 +19,7 @@ int main(void)
     //捕获2信号，捕捉到了之后执行sighander函数
     signal(2, sighander);
 
-    while(1)
+    while (1)
     {
         printf("a\n");
         sleep(1);

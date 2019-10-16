@@ -9,6 +9,6 @@
 #include <dirent.h>
 
 void *do_task(void *arg);
-int basename(char **name,char *path);
+int basename(char **name, char *path);
 int pathcat(char **dest, const char *arg1, const char *arg2);
 int scan_dir(char *src, const char *dest);

@@ -7,7 +7,7 @@ int main(void)
     list_create(&new_a);
 
     int *data = (int *)malloc(sizeof(int));
-    if(data == NULL)
+    if (data == NULL)
     {
         perror("data == NULL");
         return -1;
@@ -16,7 +16,7 @@ int main(void)
     *data = 2333;
     list_insert_node(new_a, data, sizeof(int), 1);
 
-    printf("item = %d\n",*((int *)(new_a->next->item)));
-    ret= list_destroy(&new_a);
+    printf("item = %d\n", *((int *)(new_a->next->item)));
+    ret = list_destroy(&new_a);
     return 0;
 }

@@ -11,6 +11,6 @@
 #include <stdlib.h>
 
 int get_xy(int *x0, int *y0, int *x1, int *y1);
-int get_xy_release(int *x,int *y);
+int get_xy_release(int *x, int *y);
 
 #endif

@@ -3,7 +3,7 @@
 //返回链表的长度
 int list_length(node_t head)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         perror("list length == NULL");
         return -1;
@@ -11,7 +11,7 @@ int list_length(node_t head)
 
     int count = 0;
     node_t temp = head->next;
-    while(temp != head)
+    while (temp != head)
     {
         count++;
         temp = temp->next;
@@ -22,13 +22,13 @@ int list_length(node_t head)
 //初始化链表
 node_t list_init(node_t head)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         perror("list init == NULL");
         return head;
     }
     node_t temp = head->next;
-    while(temp != head)
+    while (temp != head)
     {
         head->next = temp->next;
         temp->next->prev = head;
@@ -48,7 +48,7 @@ node_t list_init(node_t head)
 node_t list_create(node_t *head)
 {
     *head = (node_t)malloc(sizeof(node));
-    if(*head == NULL)
+    if (*head == NULL)
     {
         perror("list_create == NULL");
         return *head;
@@ -63,7 +63,7 @@ node_t list_create(node_t *head)
 
 node_t list_destroy(node_t *head)
 {
-    if(*head == NULL)
+    if (*head == NULL)
     {
         perror("list destroy == NULL");
         return *head;
@@ -77,13 +77,13 @@ node_t list_destroy(node_t *head)
 //insert by position,插入到第n个，n = position.
 node_t list_insert_node(node_t head, void *item, int size, int position)
 {
-    if(position == 0)
+    if (position == 0)
     {
         perror("node_insert不能插入到头结点，第三个参数不能为0");
         return head;
     }
 
-    if(head == NULL)
+    if (head == NULL)
     {
         perror("list insert == NULL");
         return head;
@@ -93,14 +93,14 @@ node_t list_insert_node(node_t head, void *item, int size, int position)
     node_t temp = head;
     int length = list_length(head);
 
-    if((position < 0 ? -position-1 : position-1) > length)
+    if ((position < 0 ? -position - 1 : position - 1) > length)
     {
         perror("list insert ：所给位置超过链表长度");
         return head;
     }
 
     node_t new_node = (node_t)malloc(sizeof(node));
-    if(new_node == NULL)
+    if (new_node == NULL)
     {
         perror("malloc new node failed");
         return head;
@@ -109,9 +109,9 @@ node_t list_insert_node(node_t head, void *item, int size, int position)
     new_node->item = item;
     new_node->size = size;
 
-    if(position > 0)
+    if (position > 0)
     {
-        for(count = 0; count < position-1; count++)
+        for (count = 0; count < position - 1; count++)
         {
             temp = temp->next;
         }
@@ -120,9 +120,9 @@ node_t list_insert_node(node_t head, void *item, int size, int position)
         temp->next->prev = new_node;
         temp->next = new_node;
     }
-    else if(position < 0)
+    else if (position < 0)
     {
-        for(count = 0; count > position+1; count--)
+        for (count = 0; count > position + 1; count--)
         {
             temp = temp->prev;
         }
@@ -137,7 +137,7 @@ node_t list_insert_node(node_t head, void *item, int size, int position)
 //get node by position
 node_t list_get_node(node_t head, int position)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         perror("list_get_node == NULL");
         return head;
@@ -147,22 +147,22 @@ node_t list_get_node(node_t head, int position)
     node_t temp = head;
     int length = list_length(head);
 
-    if((position < 0 ? -position : position) > length)
+    if ((position < 0 ? -position : position) > length)
     {
         perror("list get node ：所给位置超过链表长度");
         return NULL;
     }
 
-    if(position > 0)
+    if (position > 0)
     {
-        for(count = 0; count < position; count++)
+        for (count = 0; count < position; count++)
         {
             temp = temp->next;
         }
     }
-    else if(position < 0)
+    else if (position < 0)
     {
-        for(count = 0; count > position; count--)
+        for (count = 0; count > position; count--)
         {
             temp = temp->prev;
         }
@@ -171,22 +171,22 @@ node_t list_get_node(node_t head, int position)
 }
 
 //删除第n个节点，n = position.
-node_t list_delete_node(node_t head,  int position)
+node_t list_delete_node(node_t head, int position)
 {
-    if(position == 0)
+    if (position == 0)
     {
         perror("node_delete不能删除头结点，即第二个参数不能为0");
         return NULL;
     }
 
-    if(head == NULL)
+    if (head == NULL)
     {
         perror("list delete node head == NULL");
         return head;
     }
-    
+
     node_t temp = list_get_node(head, position);
-    if(temp == NULL)
+    if (temp == NULL)
     {
         perror("list delete node Position over limit");
         return NULL;

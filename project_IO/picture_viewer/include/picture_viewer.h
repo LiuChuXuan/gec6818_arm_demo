@@ -7,13 +7,13 @@
 #include "show_bmp.h"
 
 #ifndef MOVE_LEFT
-    #define MOVE_LEFT        666666
+#define MOVE_LEFT 666666
 #endif
 #ifndef MOVE_RIGHT
-    #define MOVE_RIGHT     -666666
+#define MOVE_RIGHT -666666
 #endif
 #ifndef QUIT
-    #define QUIT          115201
+#define QUIT 115201
 #endif
 
 int picture_viewer(sc_info_t screen, char *path);

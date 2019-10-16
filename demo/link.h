@@ -7,11 +7,12 @@
 
 typedef int element_t;
 
-typedef struct node{
+typedef struct node
+{
     element_t item;
     struct node *next;
     struct node *prev;
-}node, *node_t;
+} node, *node_t;
 
 node_t link_create(node_t *head);
 node_t link_init(node_t head);

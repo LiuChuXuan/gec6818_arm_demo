@@ -1,16 +1,16 @@
 /*---------------------------------------
-*¹¦ÄÜÃèÊö:  ÊµÏÖLEDµÄÇý¶¯
-*´´½¨Õß£º   ÔÁÇ¶¼¼Êõ²¿
-*´´½¨Ê±¼ä£º 2015,01,01
+*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:  Êµï¿½ï¿½LEDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½   ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º 2015,01,01
 ---------------------------------------
-*ÐÞ¸ÄÈÕÖ¾£º
-*ÐÞ¸ÄÄÚÈÝ£º
-*ÐÞ¸ÄÈË£º
-*ÐÞ¸ÄÊ±¼ä£º
+*ï¿½Þ¸ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½
+*ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ý£ï¿½
+*ï¿½Þ¸ï¿½ï¿½Ë£ï¿½
+*ï¿½Þ¸ï¿½Ê±ï¿½ä£º
 ----------------------------------------*/
 
 /*************************************************
-*Í·ÎÄ¼þ
+*Í·ï¿½Ä¼ï¿½
 *************************************************/
 #include <linux/kernel.h>
 #include <linux/module.h>
@@ -25,53 +25,56 @@
 #include <linux/gpio.h>
 #include <cfg_type.h>
 
-#define DEVICE_NAME "Led"                    //¶¨ÒåÉè±¸Ãû×Ö
+#define DEVICE_NAME "Led" //ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
 
-//¶¨ÒåLedµÄ½á¹¹Ìå£¬°üÀ¨¹Ü½ÅºÍÃû×Ö
-struct led {
+//ï¿½ï¿½ï¿½ï¿½Ledï¿½Ä½á¹¹ï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ü½Åºï¿½ï¿½ï¿½ï¿½ï¿½
+struct led
+{
 	int gpio;
-	char *name;	
+	char *name;
 };
 
-//¶¨ÒåLedµÄ¹Ü½ÅºÍÃû×Ö                                          
+//ï¿½ï¿½ï¿½ï¿½Ledï¿½Ä¹Ü½Åºï¿½ï¿½ï¿½ï¿½ï¿½
 static struct led led_gpios[] = {
-	{PAD_GPIO_B+26,"led1"},
-    	{PAD_GPIO_C+11,"led2"},
-    	{PAD_GPIO_C+7,"led3"},
-	{PAD_GPIO_C+12,"led4"},
+	{PAD_GPIO_B + 26, "led1"},
+	{PAD_GPIO_C + 11, "led2"},
+	{PAD_GPIO_C + 7, "led3"},
+	{PAD_GPIO_C + 12, "led4"},
 };
 
-#define LED_NUM		4                     //ARRAY_SIZE(led_gpios)
-#define TEST_MAX_NR 4 		              //¶¨ÒåÃüÁîµÄ×î´óÐòÊý
-#define TEST_MAGIC 'x'                    //¶¨Òå»ÃÊý
+#define LED_NUM 4	  //ARRAY_SIZE(led_gpios)
+#define TEST_MAX_NR 4  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+#define TEST_MAGIC 'x' //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define LED1 _IO(TEST_MAGIC,0)
-#define LED2 _IO(TEST_MAGIC,1)
-#define LED3 _IO(TEST_MAGIC,2)
-#define LED4 _IO(TEST_MAGIC,3)
+#define LED1 _IO(TEST_MAGIC, 0)
+#define LED2 _IO(TEST_MAGIC, 1)
+#define LED3 _IO(TEST_MAGIC, 2)
+#define LED4 _IO(TEST_MAGIC, 3)
 
 /*************************************************
-*led_openº¯Êý
+*led_openï¿½ï¿½ï¿½ï¿½
 *************************************************/
 static int led_open(struct inode *inode, struct file *filp)
 {
 	printk(DEVICE_NAME ":open\n");
-	return 0;				     
+	return 0;
 }
 
 /*************************************************
-*LED¿ØÖÆº¯Êý
+*LEDï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½
 *************************************************/
 static long gec5260_leds_ioctl(struct file *filp, unsigned int cmd,
-		unsigned long arg)
+							   unsigned long arg)
 {
 #if 1
 	printk("led_num = %d \n", LED_NUM);
-	if(_IOC_TYPE(cmd) != TEST_MAGIC) return - EINVAL;
-	if(_IOC_NR(cmd) > TEST_MAX_NR) return - EINVAL;	
-	
+	if (_IOC_TYPE(cmd) != TEST_MAGIC)
+		return -EINVAL;
+	if (_IOC_NR(cmd) > TEST_MAX_NR)
+		return -EINVAL;
+
 	gpio_set_value(led_gpios[_IOC_NR(cmd)].gpio, arg);
-	printk(DEVICE_NAME": %d %lu\n", _IOC_NR(cmd), arg);
+	printk(DEVICE_NAME ": %d %lu\n", _IOC_NR(cmd), arg);
 
 #endif
 	//printk("xxxx %lu, %d xxxxx \n", cmd, arg);
@@ -79,68 +82,67 @@ static long gec5260_leds_ioctl(struct file *filp, unsigned int cmd,
 }
 
 /*************************************************
-*ÎÄ¼þ²Ù×÷¼¯
+*ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *************************************************/
 static struct file_operations gec5260_led_dev_fops = {
-	.owner			= THIS_MODULE,
-	.open                   = led_open,
-	.unlocked_ioctl	= gec5260_leds_ioctl,
+	.owner = THIS_MODULE,
+	.open = led_open,
+	.unlocked_ioctl = gec5260_leds_ioctl,
 };
 
 /*************************************************
-*ÔÓÏîÉè±¸
+*ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
 *************************************************/
 static struct miscdevice gec5260_led_dev = {
-	.minor			= MISC_DYNAMIC_MINOR,
-	.name			= DEVICE_NAME,
-	.fops			= &gec5260_led_dev_fops,
+	.minor = MISC_DYNAMIC_MINOR,
+	.name = DEVICE_NAME,
+	.fops = &gec5260_led_dev_fops,
 };
 
 /********************************************************************
-*Çý¶¯µÄ³õÊ¼»¯º¯Êý--->´ÓÄÚºËÖÐÉêÇë×ÊÔ´£¨ÄÚºË¡¢ÖÐ¶Ï¡¢Éè±¸ºÅ¡¢Ëø....£©
+*ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--->ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ÚºË¡ï¿½ï¿½Ð¶Ï¡ï¿½ï¿½è±¸ï¿½Å¡ï¿½ï¿½ï¿½....ï¿½ï¿½
 ********************************************************************/
-static int __init gec5260_led_dev_init(void) 
+static int __init gec5260_led_dev_init(void)
 {
 	int ret, i;
-	
+
 	for (i = 0; i < LED_NUM; i++)
 	{
-		ret = gpio_request(led_gpios[i].gpio, led_gpios[i].name);            //ioÉêÇë
-		if (ret) 															 //Ê§°ÜÔò´òÓ¡³öÄÇ¸ö¹Ü½ÌÉêÇëÊ§°Ü
+		ret = gpio_request(led_gpios[i].gpio, led_gpios[i].name); //ioï¿½ï¿½ï¿½ï¿½
+		if (ret)												  //Ê§ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 		{
 			printk("%s: request GPIO %d for LED failed, ret = %d\n", led_gpios[i].name, led_gpios[i].gpio, ret);
 			return ret;
 		}
-		gpio_direction_output(led_gpios[i].gpio,0);                 //ÉèÖÃioÎªÊä³ö¹Ü½Å              
+		gpio_direction_output(led_gpios[i].gpio, 0); //ï¿½ï¿½ï¿½ï¿½ioÎªï¿½ï¿½ï¿½ï¿½Ü½ï¿½
 	}
-	
-	ret = misc_register(&gec5260_led_dev);                                   //ÔÓÏîÉè±¸ÉêÇë
-	printk(DEVICE_NAME"\tinitialized\n");									 //ÏÔÊ¾ÉêÇë³É¹¦
+
+	ret = misc_register(&gec5260_led_dev); //ï¿½ï¿½ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½
+	printk(DEVICE_NAME "\tinitialized\n"); //ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½É¹ï¿½
 	return ret;
 }
 
 /*****************************************************************
-*Çý¶¯ÍË³öº¯Êý --->½«ÉêÇëµÄ×ÊÔ´»¹¸øÄÚºË
+*ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ --->ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½
 *****************************************************************/
-static void __exit gec5260_led_dev_exit(void) 
+static void __exit gec5260_led_dev_exit(void)
 {
 	int i;
-	//ÊÍ·Å¹Ü½Ì
-	for (i = 0; i < LED_NUM; i++) 
+	//ï¿½Í·Å¹Ü½ï¿½
+	for (i = 0; i < LED_NUM; i++)
 	{
 		gpio_free(led_gpios[i].gpio);
 	}
-	//ÒÆ³ýÔÓÏîÉè±¸
+	//ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
 	misc_deregister(&gec5260_led_dev);
 }
 
-module_init(gec5260_led_dev_init);                                          //Çý¶¯µÄÈë¿Úº¯Êý»áµ÷ÓÃÒ»¸öÓÃ»§µÄ³õÊ¼»¯º¯Êý
-module_exit(gec5260_led_dev_exit);                                          //Çý¶¯µÄ³ö¿Úº¯Êý»áµ÷ÓÃÒ»¸öÓÃ»§µÄÍË³öº¯Êý
+module_init(gec5260_led_dev_init); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+module_exit(gec5260_led_dev_exit); //ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
 
 /***************************************************************
-*Çý¶¯µÄÃèÊöÐÅÏ¢£º #modinfo  *.ko , Çý¶¯µÄÃèÊöÐÅÏ¢²¢²»ÊÇ±ØÐèµÄ¡£
+*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ #modinfo  *.ko , ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½Ä¡ï¿½
 ***************************************************************/
-MODULE_AUTHOR("ZOROE@GEC");                                                //Çý¶¯µÄ×÷Õß
-MODULE_DESCRIPTION("the LED of driver");                                   //Çý¶¯µÄÃèÊö
-MODULE_LICENSE("GPL");                                                     //×ñÑ­µÄÐ­Òé
-
+MODULE_AUTHOR("ZOROE@GEC");				 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+MODULE_DESCRIPTION("the LED of driver"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+MODULE_LICENSE("GPL");					 //ï¿½ï¿½Ñ­ï¿½ï¿½Ð­ï¿½ï¿½

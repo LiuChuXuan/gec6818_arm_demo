@@ -5,15 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct node{
+typedef struct node
+{
     void *item;
     struct node *next;
     struct node *prev;
-}node, *node_t;
+} node, *node_t;
 
-typedef struct hahaha{
+typedef struct hahaha
+{
     int s;
     int m;
-}hahaha, *hahaha_t;
-    
+} hahaha, *hahaha_t;
+
 #endif

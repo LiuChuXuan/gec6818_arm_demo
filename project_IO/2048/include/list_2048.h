@@ -9,11 +9,12 @@
 
 typedef int elen_2048_t;
 
-typedef struct list_2048{
-    elen_2048_t item[4][4];        //4x4的格子
-    int len;                                           //格子被占用的数量
-    int score;                                      //分数
-}list_2048, *list_2048_t;
+typedef struct list_2048
+{
+    elen_2048_t item[4][4]; //4x4的格子
+    int len;                //格子被占用的数量
+    int score;              //分数
+} list_2048, *list_2048_t;
 
 list_2048_t list_2048_init(list_2048_t head);
 list_2048_t list_2048_create(list_2048_t *new_list);

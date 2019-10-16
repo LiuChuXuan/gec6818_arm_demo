@@ -19,7 +19,7 @@ int main(void)
 
     //将数组地址传进去，函数会将pipefd信息写入到地址里
     int ret_pipe = pipe(pipefd);
-    if(ret_pipe == -1)//成功返回0，失败返回-1
+    if (ret_pipe == -1) //成功返回0，失败返回-1
     {
         perror("create pipe failed");
         return -1;
@@ -29,31 +29,31 @@ int main(void)
 
     printf("hello\n");
     pid_t ret = fork();
-    if(ret == 0)
+    if (ret == 0)
     {
-        printf("ret == 0 pid : %d\n",getpid());
-        printf("ret == 0 ppid : %d\n",getppid());
+        printf("ret == 0 pid : %d\n", getpid());
+        printf("ret == 0 ppid : %d\n", getppid());
         printf("parent\n");
-        while(1)
+        while (1)
         {
-            read(pipefd[0], buf, 12);//从读端pipefd[0]读取数据到buf里面
+            read(pipefd[0], buf, 12); //从读端pipefd[0]读取数据到buf里面
             printf("%s\n", buf);
         }
     }
-    else if(ret > 0)
+    else if (ret > 0)
     {
-        printf("ret > 0 pid : %d\n",getpid());
-        printf("ret > 0 ppid : %d\n",getppid());
+        printf("ret > 0 pid : %d\n", getpid());
+        printf("ret > 0 ppid : %d\n", getppid());
         printf("child\n");
 
-        while(1)
+        while (1)
         {
-            strcpy(buf,"aaaaaaaaaa\n");
-            write(pipefd[1], buf, strlen(buf));//将buf里面的数据写入到写端pipefd[1]
+            strcpy(buf, "aaaaaaaaaa\n");
+            write(pipefd[1], buf, strlen(buf)); //将buf里面的数据写入到写端pipefd[1]
             //sleep(1);
         }
     }
-    else if(ret == -1)
+    else if (ret == -1)
     {
         perror("error");
     }
@@ -66,5 +66,5 @@ int main(void)
 void func(void)
 {
     int a = 10;
-    printf("a = %d\n",++a);
+    printf("a = %d\n", ++a);
 }
