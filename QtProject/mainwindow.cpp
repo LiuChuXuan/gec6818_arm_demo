@@ -6,7 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setGeometry(0, 0, 800, 480);
+    setFixedWidth(800);
+    setFixedHeight(480);
 
     //创建登录输入框
     loginInterface = new LoginInterface(this);

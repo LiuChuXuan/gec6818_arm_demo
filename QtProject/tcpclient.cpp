@@ -69,6 +69,7 @@ void TcpClient::on_sendServer_clicked()
         ui->textBrowser->append(ui->textEdit->toPlainText().toUtf8());
         lastSenderIsMe = true;
     }
+    ui->textEdit->clear();
 }
 
 void TcpClient::on_clearBrowser_clicked()

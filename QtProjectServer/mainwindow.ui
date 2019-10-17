@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>950</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="connectServer">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>320</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>启动服务器</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="chatBrowser">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>310</y>
+      <width>325</width>
+      <height>240</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="chatEdit">
+    <property name="geometry">
+     <rect>
+      <x>325</x>
+      <y>310</y>
+      <width>325</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>请输入回复信息</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clearBrowser">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>400</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清除聊天记录</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="portEdit">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>0</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>设置服务器端口号</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sendServer">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>480</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>发送</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="userIp">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>80</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="userName">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>160</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>260</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>已收到反馈信息</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>260</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>正在处理</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>260</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>处理完成</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_4">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>260</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>服务评价</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="questionBrowser">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>325</width>
+      <height>240</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="questionEdit">
+    <property name="geometry">
+     <rect>
+      <x>325</x>
+      <y>0</y>
+      <width>325</width>
+      <height>240</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>编辑问题解决方案和问题解决进度的相关描述</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="userList">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>0</y>
+      <width>150</width>
+      <height>551</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Monitor">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>240</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查看社区安全监控</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

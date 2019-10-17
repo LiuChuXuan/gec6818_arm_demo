@@ -41,10 +41,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>705</x>
+     <x>700</x>
      <y>0</y>
-     <width>95</width>
-     <height>25</height>
+     <width>100</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="mouseTracking">

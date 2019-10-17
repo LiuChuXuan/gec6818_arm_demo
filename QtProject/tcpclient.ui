@@ -58,7 +58,7 @@
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>325</x>
      <y>0</y>
      <width>325</width>
      <height>240</height>
@@ -71,7 +71,7 @@
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>325</x>
+     <x>0</x>
      <y>0</y>
      <width>325</width>
      <height>240</height>
