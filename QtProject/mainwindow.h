@@ -23,6 +23,7 @@ public:
 private slots:
     void closeAdvertisement();
     void closeLoginInterface(QString userName);
+    void userLogout();
 
 signals:
     void setUserName(QString);
@@ -35,6 +36,7 @@ private:
     LoginInterface *loginInterface;
     MainInterface *mainInterface;
     Keyboard *keyboard;
+
 };
 
 #endif // MAINWINDOW_H

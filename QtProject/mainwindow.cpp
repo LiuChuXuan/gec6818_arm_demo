@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mainInterface->hide();
     connect(this, SIGNAL(setUserName(QString)),
             mainInterface, SLOT(setLabelUserName(QString)));
-
+    connect(mainInterface, SIGNAL(logout()),
+            this, SLOT(userLogout()));
 
     advertisement->show();
 }
@@ -48,13 +49,45 @@ void MainWindow::closeAdvertisement()
     advertisement->close();
 }
 
+
 void MainWindow::closeLoginInterface(QString userName)
 {
     //关闭软键盘和输入界面
-    loginInterface->close();
-    keyboard->close();
+    //loginInterface->hide();
+    //keyboard->hide();
+    delete loginInterface;
+    loginInterface = nullptr;
+    delete keyboard;
+    keyboard = nullptr;
 
     emit setUserName(userName);
     mainInterface->show();
+}
+
+void MainWindow::userLogout()
+{
+    delete mainInterface;
+
+    //创建登录输入框
+    loginInterface = new LoginInterface(this);
+    connect(loginInterface, SIGNAL(logInSuccess(QString)),
+            this, SLOT(closeLoginInterface(QString)));
+    loginInterface->show();
+
+    //创建软键盘
+    keyboard = new Keyboard(this);
+    keyboard->changeGeometry(50, 300, 700, 180);
+    keyboard->show();
+
+    //主界面
+    mainInterface = new MainInterface(this);
+    mainInterface->hide();
+    connect(this, SIGNAL(setUserName(QString)),
+            mainInterface, SLOT(setLabelUserName(QString)));
+    connect(mainInterface, SIGNAL(logout()),
+            this, SLOT(userLogout()));
+
+    loginInterface->show();
+    keyboard->show();
 }
 

@@ -55,6 +55,8 @@ void LoginInterface::on_logIn_clicked()
                 if(!strncmp(passwordBuf, passwordArr, 16))
                 {
                     //两个密码相同则进入这个判断(登录成功)
+                    //在mainwindow.cpp中连接了该信号用于进入登录界面
+                    //在本类中connect用于清空lineEdit中的账号密码信息
                     emit logInSuccess(account);
                     return;
                 }

@@ -2,9 +2,9 @@
 #define MAININTERFACE_H
 
 #include <QWidget>
-#include <QLabel>
-#include <QDateTime>
 #include "tcpclient.h"
+#include "weatherdatetime.h"
+#include <QTimerEvent>
 
 namespace Ui
 {
@@ -18,19 +18,27 @@ class MainInterface : public QWidget
 public:
     explicit MainInterface(QWidget *parent = nullptr);
     ~MainInterface();
-    void setDateTime();
+    void hideThis();
+    void timerEvent(QTimerEvent *e);
 
 private:
-    QLabel *userName;
-   // QLabel *date_time;
-   // QDateTime *dateTime;
     Ui::MainInterface *ui;
     TcpClient *tcpClient;
+    WeatherDateTime *weather;
+    int tid;
+    int count;
+
+signals:
+    void logout();
 
 private slots:
     void setLabelUserName(QString name);
-    void on_pushButton_clicked();
     void showThis();
+    void on_logOut_clicked();
+    void on_repair_clicked();
+    void on_weatherButton_clicked();
+    void on_LEDControl_clicked();
+    void on_camera_clicked();
 };
 
 #endif // MAININTERFACE_H

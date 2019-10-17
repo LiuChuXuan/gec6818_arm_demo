@@ -5,8 +5,6 @@ MainInterface::MainInterface(QWidget *parent) :
     ui(new Ui::MainInterface)
 {
     ui->setupUi(this);
-    userName = new QLabel(this);
-    userName->setGeometry(0, 0, 800, 30);
 
     tcpClient = new TcpClient(this);
     tcpClient->hide();
@@ -14,40 +12,103 @@ MainInterface::MainInterface(QWidget *parent) :
     connect(tcpClient, SIGNAL(back()),
             this, SLOT(showThis()));
 
-    //setDateTime();
+    weather = new WeatherDateTime(this);
+    weather->hide();
+    connect(weather, SIGNAL(back()),
+            this, SLOT(showThis()));
+
+    ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/1.jpg);");
+    tid  = startTimer(3000);//每三秒自动切换广告timerEvent()
+    count = 1;
 }
 
 MainInterface::~MainInterface()
 {
     delete ui;
-    delete userName;
     delete tcpClient;
-
+    delete weather;
 }
 
-void setDateTime()
+void MainInterface::hideThis()
 {
-    //dateTime = new QDateTime(QDateTime::currentDateTime());
-    //QString qStr = dateTime.toString("yyy-MM-dd hh:mm::ss ddd");
+    ui->camera->hide();
+    ui->LEDControl->hide();
+    ui->autoAdvertisement->hide();
+    ui->userName->hide();
+    ui->repair->hide();
+    ui->weatherButton->hide();
+    ui->logOut->hide();
+}
+
+void MainInterface::timerEvent(QTimerEvent *e)
+{
+    switch(++count)
+    {
+    case 1:
+        ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/1.jpg);");
+        break;
+
+    case 2:
+        ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/2.jpg);");
+        break;
+
+    case 3:
+        ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/3.jpg);");
+        break;
+
+    case 4:
+        ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/4.jpg);");
+        break;
+
+    case 5:
+        ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/5.jpg);");
+        count = 0;
+        break;
+    }
 }
 
 void MainInterface::setLabelUserName(QString name)
 {
-    userName->setText("用户名：" + name);
-    userName->show();
+    ui->userName->setText(" 用户名：\n " + name);
+    ui->userName->show();
 }
 
-void MainInterface::on_pushButton_clicked()
-{
-    ui->pushButton->hide();
-    userName->hide();
-    ui->logOut->hide();
-    tcpClient->show();
-}
 
 void MainInterface::showThis()
 {
-    ui->pushButton->show();
-    userName->show();
+    ui->camera->show();
+    ui->LEDControl->show();
+    ui->autoAdvertisement->show();
+    ui->repair->show();
+    ui->weatherButton->show();
+    ui->userName->show();
     ui->logOut->show();
+}
+
+void MainInterface::on_logOut_clicked()
+{
+    //在mainwindow中connect
+    emit logout();
+}
+
+void MainInterface::on_repair_clicked()
+{
+    hideThis();
+    tcpClient->show();
+}
+
+void MainInterface::on_weatherButton_clicked()
+{
+    hideThis();
+    weather->show();
+}
+
+void MainInterface::on_LEDControl_clicked()
+{
+
+}
+
+void MainInterface::on_camera_clicked()
+{
+
 }

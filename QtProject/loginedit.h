@@ -18,6 +18,8 @@ public:
     QString getPassword();
     QString getAccount();
 
+private slots:
+
 private:
     Ui::LoginEdit *ui;
 };

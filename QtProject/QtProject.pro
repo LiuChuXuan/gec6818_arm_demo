@@ -33,10 +33,10 @@ SOURCES += \
         main.cpp \
         maininterface.cpp \
         mainwindow.cpp \
-        progress.cpp \
         punctuationsoftkey.cpp \
         softkey.cpp \
-        tcpclient.cpp
+        tcpclient.cpp \
+        weatherdatetime.cpp
 
 HEADERS += \
         advertisement.h \
@@ -46,10 +46,10 @@ HEADERS += \
         logininterface.h \
         maininterface.h \
         mainwindow.h \
-        progress.h \
         punctuationsoftkey.h \
         softkey.h \
-        tcpclient.h
+        tcpclient.h \
+        weatherdatetime.h
 
 FORMS += \
         advertisement.ui \
@@ -58,10 +58,10 @@ FORMS += \
         logininterface.ui \
         maininterface.ui \
         mainwindow.ui \
-        progress.ui \
         punctuationsoftkey.ui \
         softkey.ui \
-        tcpclient.ui
+        tcpclient.ui \
+        weatherdatetime.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

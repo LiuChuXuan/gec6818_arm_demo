@@ -27,3 +27,4 @@ QString LoginEdit::getAccount()
 {
     return ui->userEdit->text();
 }
+

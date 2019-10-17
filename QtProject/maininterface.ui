@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="repair">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>70</y>
-     <width>161</width>
-     <height>71</height>
+     <x>540</x>
+     <y>410</y>
+     <width>130</width>
+     <height>70</height>
     </rect>
    </property>
    <property name="text">
@@ -29,16 +29,92 @@
   <widget class="QPushButton" name="logOut">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>220</y>
-     <width>151</width>
-     <height>61</height>
+     <x>670</x>
+     <y>410</y>
+     <width>130</width>
+     <height>70</height>
     </rect>
    </property>
    <property name="text">
     <string>退出登录</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="weatherButton">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>410</y>
+     <width>130</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>天气、时间、日历</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="autoAdvertisement">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>410</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="userName">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>410</y>
+     <width>800</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(225, 225, 225);
+gridline-color: rgb(173, 173, 173);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="LEDControl">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>410</y>
+     <width>130</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>灯光控制</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="camera">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>410</y>
+     <width>130</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>社区安全监控</string>
+   </property>
+  </widget>
+  <zorder>userName</zorder>
+  <zorder>repair</zorder>
+  <zorder>logOut</zorder>
+  <zorder>weatherButton</zorder>
+  <zorder>autoAdvertisement</zorder>
+  <zorder>LEDControl</zorder>
+  <zorder>camera</zorder>
  </widget>
  <resources/>
  <connections/>
