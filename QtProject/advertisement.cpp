@@ -18,7 +18,6 @@ Advertisement::Advertisement(QWidget *parent) :
     connect(timer2, SIGNAL(timeout()), this, SLOT(setText()));
     timer2->start(1000);
     count = 2;
-
 }
 
 Advertisement::~Advertisement()

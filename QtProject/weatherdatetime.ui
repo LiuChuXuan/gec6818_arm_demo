@@ -13,19 +13,191 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel{
+	background-color: rgb(102, 204, 255);
+}</string>
+  </property>
   <widget class="QPushButton" name="back">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>350</y>
-     <width>191</width>
-     <height>121</height>
+     <x>720</x>
+     <y>0</y>
+     <width>80</width>
+     <height>60</height>
     </rect>
    </property>
    <property name="text">
     <string>返回</string>
    </property>
   </widget>
+  <widget class="QLabel" name="current">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>获取时间失败</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>100</y>
+     <width>800</width>
+     <height>480</height>
+    </rect>
+   </property>
+   <property name="columnCount">
+    <number>15</number>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>94</number>
+   </attribute>
+   <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+    <bool>false</bool>
+   </attribute>
+   <attribute name="verticalHeaderDefaultSectionSize">
+    <number>43</number>
+   </attribute>
+   <row>
+    <property name="text">
+     <string>天气：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>空气质量指数：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>最高温：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>最低温</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>日升时间：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>日落时间：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>风向：</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>风强：</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>10</string>
+    </property>
+   </column>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
+  </widget>
+  <widget class="QLabel" name="current_2">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>50</y>
+     <width>800</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <zorder>current</zorder>
+  <zorder>back</zorder>
+  <zorder>tableWidget</zorder>
+  <zorder>current_2</zorder>
  </widget>
  <resources/>
  <connections/>
