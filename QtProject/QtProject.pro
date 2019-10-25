@@ -28,6 +28,7 @@ SOURCES += \
         advertisement.cpp \
         button.cpp \
         keyboard.cpp \
+        lcd.cpp \
         loginedit.cpp \
         logininterface.cpp \
         main.cpp \
@@ -36,12 +37,20 @@ SOURCES += \
         punctuationsoftkey.cpp \
         softkey.cpp \
         tcpclient.cpp \
+        v4l2.cpp \
         weatherdatetime.cpp
 
 HEADERS += \
         advertisement.h \
         button.h \
+        jpeg/api_v4l2.h \
+        jpeg/jconfig.h \
+        jpeg/jerror.h \
+        jpeg/jmorecfg.h \
+        jpeg/jpeglib.h \
+        jpeg/yuyv.h \
         keyboard.h \
+        lcd.h \
         loginedit.h \
         logininterface.h \
         maininterface.h \
@@ -49,6 +58,7 @@ HEADERS += \
         punctuationsoftkey.h \
         softkey.h \
         tcpclient.h \
+        v4l2.h \
         weatherdatetime.h
 
 FORMS += \
@@ -61,7 +71,10 @@ FORMS += \
         punctuationsoftkey.ui \
         softkey.ui \
         tcpclient.ui \
+        v4l2.ui \
         weatherdatetime.ui
+
+unix: LIBS += -L $$PWD/ -ljpeg -lapi_v4l2_arm1 -lpthread
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -70,3 +83,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     image/image.qrc
+
+#DISTFILES += \
+ #   jpeg/libapi_v4l2_arm1.so \
+  #  jpeg/libjpeg.so \
+   # jpeg/libjpeg.so.8

@@ -88,7 +88,7 @@
     </rect>
    </property>
    <property name="placeholderText">
-    <string>请输入要连接的ip</string>
+    <string>目标ip</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="portEdit">
@@ -101,7 +101,7 @@
     </rect>
    </property>
    <property name="placeholderText">
-    <string>请输入要连接的端口</string>
+    <string>目标端口号</string>
    </property>
   </widget>
   <widget class="QPushButton" name="progress">

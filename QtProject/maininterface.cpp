@@ -20,6 +20,12 @@ MainInterface::MainInterface(QWidget *parent) :
     ui->autoAdvertisement->setStyleSheet("border-image: url(:/image/1.jpg);");
     tid  = startTimer(3000);//每三秒自动切换广告timerEvent()
     count = 1;
+
+    camera = new V4L2();
+    camera->hide();
+    //connect(camera, SIGNAL(back()),
+    //        this, SLOT(showThis()));
+
 }
 
 MainInterface::~MainInterface()
@@ -27,6 +33,7 @@ MainInterface::~MainInterface()
     delete ui;
     delete tcpClient;
     delete weather;
+    delete camera;
 }
 
 void MainInterface::hideThis()
@@ -110,5 +117,6 @@ void MainInterface::on_LEDControl_clicked()
 
 void MainInterface::on_camera_clicked()
 {
-
+    hideThis();
+    camera->show();
 }

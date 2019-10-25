@@ -49,7 +49,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>天气、时间、日历</string>
+    <string>时间、天气</string>
    </property>
   </widget>
   <widget class="QLabel" name="autoAdvertisement">

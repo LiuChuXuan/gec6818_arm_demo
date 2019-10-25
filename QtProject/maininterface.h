@@ -5,6 +5,7 @@
 #include "tcpclient.h"
 #include "weatherdatetime.h"
 #include <QTimerEvent>
+#include "v4l2.h"
 
 namespace Ui
 {
@@ -27,6 +28,8 @@ private:
     WeatherDateTime *weather;
     int tid;
     int count;
+    V4L2 *camera;
+
 
 signals:
     void logout();
